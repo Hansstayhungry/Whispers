@@ -6,7 +6,7 @@ import CreateArea from "./components/CreateArea";
 
 const App = () => {
 
-  // track onAdd note
+  // track onAdd ALL notes 
   const [notes, setNotes] = useState([]);
 
   const addNote = function(note) {
@@ -15,12 +15,19 @@ const App = () => {
     });
   }
 
+  const deleteNote = function(id) {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((prevNote, index) => (index !== id))
+    })
+  }
+
   return (
     <div>
       <Header></Header>
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => (
-        <Note key={index} title={note.title} content={note.content}></Note>        
+        <Note key={index} id={index} title={note.title} content={note.content}
+        onDelete={deleteNote}></Note>        
       ))}
       <Footer></Footer>
     </div>

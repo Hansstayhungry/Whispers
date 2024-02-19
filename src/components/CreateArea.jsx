@@ -10,7 +10,6 @@ const CreateArea = (props) => {
   const handleChange = function (e) {
     const {name, value} = e.target;
 
-    // use prev to 
     setNote(prev => {
       return {
         ...prev,
