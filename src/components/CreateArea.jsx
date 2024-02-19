@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CreateArea = () => {
+const CreateArea = (props) => {
 
   const [note, setNote] = useState({
     title: "",
@@ -10,6 +10,7 @@ const CreateArea = () => {
   const handleChange = function (e) {
     const {name, value} = e.target;
 
+    // use prev to 
     setNote(prev => {
       return {
         ...prev,
@@ -18,12 +19,30 @@ const CreateArea = () => {
     })
   }
 
+  // prevent submission button refresh default
+  // add note to app page
+  const handleSubmission = function (e) {
+    props.onAdd(note);
+    e.preventDefault();
+
+    clearInput()
+  }
+
+  //clear input area after submitted
+  const clearInput = function() {
+    setNote({
+      title: "",
+      content: ""
+    })
+  }
+
+
   return (
     <div>
       <form>
         <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
         <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows="3" />
-        <button>Add</button>
+        <button onClick={handleSubmission}>Add</button>
       </form>
     </div>
   )
