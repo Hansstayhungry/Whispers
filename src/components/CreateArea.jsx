@@ -12,18 +12,14 @@ const CreateArea = (props) => {
   // input display state
   const [showInput, setShowInput] = useState(false)
 
-  // input display state handler
-  const handleInputDisplay = function () {
-    console.log("handleInputDisplay is triggered");
-  }
-
-
   // fab button display state
   const [showButton, setShowButton] = useState(false)
 
-  // // fab button display state handler
-  const handleButtonDisplay = function () {
-    console.log("handleButtonDisplay is triggered");
+  // input display state handler
+  const handleInputDisplay = function () {
+    setShowInput(prev => !prev);
+  // set fab button display state
+    setShowButton(prev => !prev)
   }
 
   const handleChange = function (e) {
@@ -61,7 +57,7 @@ const CreateArea = (props) => {
         {showInput && (
           <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
           )}
-        <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows={showInput ? 3 : 1} />
+        <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={note.content} placeholder="Take a note..." rows={showInput ? 3 : 1} />
         <Zoom in={showInput ? true : false} ><Fab onClick={handleSubmission}>
             <AddIcon />
           </Fab>
