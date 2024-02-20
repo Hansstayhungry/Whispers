@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import AddIcon from '@mui/icons-material/Add';
+import { Fab, Zoom } from "@mui/material";
 
 const CreateArea = (props) => {
 
@@ -6,6 +8,23 @@ const CreateArea = (props) => {
     title: "",
     content: ""
   })
+
+  // input display state
+  const [showInput, setShowInput] = useState(false)
+
+  // input display state handler
+  const handleInputDisplay = function () {
+    console.log("handleInputDisplay is triggered");
+  }
+
+
+  // fab button display state
+  const [showButton, setShowButton] = useState(false)
+
+  // // fab button display state handler
+  const handleButtonDisplay = function () {
+    console.log("handleButtonDisplay is triggered");
+  }
 
   const handleChange = function (e) {
     const {name, value} = e.target;
@@ -38,10 +57,15 @@ const CreateArea = (props) => {
 
   return (
     <div>
-      <form>
-        <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
-        <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows="3" />
-        <button onClick={handleSubmission}>Add</button>
+      <form className="create-note">
+        {showInput && (
+          <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
+          )}
+        <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows={showInput ? 3 : 1} />
+        <Zoom in={showInput ? true : false} ><Fab onClick={handleSubmission}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
       </form>
     </div>
   )

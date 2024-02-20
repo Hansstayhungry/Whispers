@@ -37,7 +37,7 @@ const App = () => {
 
 export default App;
 
-//CHALLENGE:
+
 //1. Implement the add note functionality.
 //- Create a constant that keeps track of the title and content.
 //- Pass the new note back to the App.
@@ -49,5 +49,8 @@ export default App;
 //- Use the filter function to filter out the item that needs deletion.
 //- Pass a id over to the Note component, pass it back to the App when deleting.
 
-//This is the end result you're aiming for:
-//https://pogqj.csb.app/
+
+//Further
+// 1. Hide input title area by default, 
+  // show it when clicked textarea (from row 1 to row 3)
+// 2. hide fab button by default, 
