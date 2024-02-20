@@ -17,9 +17,7 @@ const CreateArea = (props) => {
 
   // input display state handler
   const handleInputDisplay = function () {
-    setShowInput(prev => !prev);
-  // set fab button display state
-    setShowButton(prev => !prev)
+    setShowInput(true);
   }
 
   const handleChange = function (e) {
