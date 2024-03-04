@@ -25,10 +25,12 @@ const App = () => {
     <div>
       <Header></Header>
       <CreateArea onAdd={addNote}></CreateArea>
-      {notes.map((note, index) => (
-        <Note key={index} id={index} title={note.title} content={note.content}
-        onDelete={deleteNote}></Note>        
-      ))}
+      {notes.map((note, index) => {
+        return (
+          <Note key={index} id={index} title={note.title} content={note.content}
+          onDelete={deleteNote}></Note>            
+        )
+      })}
       <Footer></Footer>
     </div>
       
