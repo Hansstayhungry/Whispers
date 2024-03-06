@@ -2,16 +2,22 @@
 
 import db from '../../configs/db.config.js';
 
-const getAllUsers = () => {
-	return db.query("SELECT * FROM users;").then(data => {
-		return data.rows;
-	})
+async function getAllUsers() {
+  try {
+    const users = await db.query('SELECT * FROM users;');
+    return users.rows;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-const getUserById = id => {
-	return db.query("SELECT * FROM users; WHERE id = $1", [id]).then(data => {
-		return data.rows;
-	})
+async function getUserById(id) {
+  try {
+    const user = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    return user.rows;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export default { getAllUsers, getUserById };
