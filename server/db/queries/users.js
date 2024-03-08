@@ -17,7 +17,16 @@ async function getUserById(id) {
     return user.rows;
   } catch (err) {
     console.log(err);
+  }         
+}
+
+async function getUserByEmail(email) {
+  try {
+    const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    return user.rows;
+  } catch (err) {
+    console.log(err);
   }
 }
 
-export default { getAllUsers, getUserById };
+export default { getAllUsers, getUserById, getUserByEmail };
