@@ -2,19 +2,20 @@ import React from "react";
 import { FormControl, Input, InputLabel, FormHelperText } from "@mui/material";
 import Footer from "../components/Footer";
 import Headers from "../components/Header";
-import axios from "axios";
+import "../styles/Login.scss"
+// import axios from "axios";
 
 const Login = (props) => {
 
   const handleSubmission = function(event) {
     event.preventDefault();
-    
+
   }
 
   return (
     <div>
       <Headers />
-      <form action="/login" method="POST">
+      <form action="/login" method="POST" className="login-form">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required />
 

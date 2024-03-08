@@ -10,8 +10,9 @@ const Header = () => {
   const [signIn, setSignIn] = useState(false)
 
   return (<header className="header-container">
-    <h1>Keeper</h1>
-
+    <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
+      <h1>Keep</h1>
+    </Link>
     {/* use Link - react router instead of a href to avoid full page reload */}
     <div className="sign-container">
       <span class="buttonGroup">
