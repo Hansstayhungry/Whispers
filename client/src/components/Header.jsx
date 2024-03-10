@@ -15,7 +15,7 @@ const Header = () => {
     </Link>
     {/* use Link - react router instead of a href to avoid full page reload */}
     <div className="sign-container">
-      <span class="buttonGroup">
+      <span className="buttonGroup">
         {!signIn && (
           <div><Button component={Link} to="/login" className="MuiLink-button">
             Login

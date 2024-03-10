@@ -4,7 +4,8 @@ import "../styles/Footer.scss";
 const Footer = () => {
   const date = new Date ();
   const currentYear = date.getFullYear();
-  return (<footer className="footerContainer">
+  return (
+    <footer className="footerContainer">
       <p>Made by @HansStayHungry with LOVE</p>
       <p>Copyright {currentYear}</p>
     </footer>)

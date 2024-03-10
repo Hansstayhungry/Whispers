@@ -16,10 +16,10 @@ const Login = (props) => {
     <div>
       <Headers />
       <form action="/login" method="POST" className="login-form">
-        <label for="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input type="email" id="email" name="email" required />
 
-        <label for="password">Password</label>
+        <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" required />
 
         <button type="submit" onClick={handleSubmission}>Log In</button>

@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: space-between;
   background-color: $Remy-Martin-KV-illustration-yellow;
-  margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
@@ -19,7 +18,7 @@
   .MuiLink-button {
     font-size: 2rem;
     background-color: $Remy-Martin-KV-illustration-rosepink;
-    margin-right: 16px;
+    margin-right: 10px;
     color: white;
     
     &:hover {
