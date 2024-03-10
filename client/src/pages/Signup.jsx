@@ -2,13 +2,14 @@ import React from "react";
 import { FormControl, Input, InputLabel, FormHelperText, Box } from "@mui/material";
 import Footer from "../components/Footer";
 import Headers from "../components/Header";
+import '../styles/Signup.scss'
 
 const Signup = (props) => {
 
   return (
     <div>
       <Headers />
-      <form action="/signup" method="POST">
+      <form className='signup-form' action="/signup" method="POST">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required/>
 

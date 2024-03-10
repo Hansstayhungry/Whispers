@@ -1,19 +1,29 @@
+@import 'variables';
+
 .header-container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  background-color: #f5ba13;
+  background-color: $Remy-Martin-KV-illustration-yellow;
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 
   h1 {
+    font-size: 4rem;
     color: #fff;
     font-family: "McLaren", cursive;
     font-weight: 200;
   }
 
   .MuiLink-button {
+    font-size: 2rem;
+    background-color: $Remy-Martin-KV-illustration-rosepink;
     margin-right: 16px;
-    border: 2px solid darkgrey;
+    color: white;
+    
+    &:hover {
+      background-color: chocolate;
+    }
   }
 }

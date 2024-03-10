@@ -1,11 +1,13 @@
+@import 'variables';
+
 .create-note {
   position: relative;
-  width: 480px;
-  margin: 30px auto 20px auto;
+  max-width: 800px;
+  margin: 50px auto 20px auto;
   background: #fff;
   padding: 15px;
   border-radius: 7px;
-  box-shadow: 0 1px 5px rgb(138, 137, 137);
+  box-shadow: 0 10px 10px rgb(241, 179, 129);
   
   input,
   textarea {
@@ -13,7 +15,7 @@
     border: none;
     padding: 4px;
     outline: none;
-    font-size: 1.2em;
+    font-size: 2em;
     font-family: inherit;
     resize: none;
   }
@@ -22,14 +24,15 @@
     position: absolute;
     right: 18px;
     bottom: -18px;
-    background: #f5ba13;
+    background: $Remy-Martin-KV-illustration-5-red;
     color: #fff;
-    border: none;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    outline: none;
+
+    &:hover {
+      background-color: brown;
+    }
   }
 }
