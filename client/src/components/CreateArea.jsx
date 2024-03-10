@@ -46,10 +46,22 @@ const CreateArea = (props) => {
     })
   }
 
+  // get current day, date, and month
+  const currentDate = function () {
+    const date = new Date();
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    }
+    return date.toLocaleDateString("en-US", options);
+  }
+
 
   return (
     <div>
       <form className="create-note">
+        <h2>{showInput ? currentDate() : ""}</h2>
         {showInput && (
           <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
           )}
