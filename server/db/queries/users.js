@@ -29,4 +29,13 @@ async function getUserByEmail(email) {
   }
 }
 
-export default { getAllUsers, getUserById, getUserByEmail };
+async function createUser(name, email, hashedPassword) {
+  try {
+    await db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
+    [name, email, hashedPassword]);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export default { getAllUsers, getUserById, getUserByEmail, createUser };

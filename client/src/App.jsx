@@ -22,7 +22,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="app-container">
       <Header></Header>
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {

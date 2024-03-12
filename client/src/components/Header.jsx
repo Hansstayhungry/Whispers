@@ -9,6 +9,7 @@ const Header = () => {
   // sign in state
   const [signIn, setSignIn] = useState(false)
 
+  // handle header title click, prevent full page reload
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
       <h1>Keep</h1>
