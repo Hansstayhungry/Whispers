@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { FormControl, Input, InputLabel, FormHelperText, Box } from "@mui/material";
 import Footer from "../components/Footer";
 import Headers from "../components/Header";
 import axios from "axios";
@@ -13,6 +12,7 @@ const Signup = (props) => {
     password: '',
   })
 
+  // capture user input to send over to useState above
   const handleChange = function(e) {
     const {name, value} = e.target;
     setFormDatas(prev => {
@@ -20,6 +20,7 @@ const Signup = (props) => {
     })
   }
 
+  // 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {

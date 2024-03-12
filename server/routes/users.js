@@ -9,12 +9,25 @@ router.post("/signup", async(req, res) => {
   // getting data from cleint side
   const { name, email, password } = req.body
   
-  //hash password
   try {
+    // check if email exists in database
+    const user = await users.getUserByEmail(email);
+
+    if (user[0]) {
+      res.status(409).json({ message: 'account already exists' })
+      return;
+    }
+
+    //hash password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hashSync(password, saltRounds);
 
-    await users.createUser(name, email, hashedPassword);
+    const data = await users.createUser(name, email, hashedPassword);
+    console.log(data);
+    //set cookies session here
+
+
+
 
     res.status(201).json({ message: 'User registered successfully'});
   } catch (error) {

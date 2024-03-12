@@ -3,7 +3,6 @@ const {ENVIRONMENT, PORT} = process.env;
 
 import express from 'express';
 import cors from 'cors';
-import uniqid from 'uniqid';
 import morgan from 'morgan';
 
 import catsRoutes from './routes/catsRoutes.js';
