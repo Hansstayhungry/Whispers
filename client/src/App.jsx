@@ -6,8 +6,20 @@ import CreateArea from "./components/CreateArea";
 
 const App = () => {
 
+  // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
   // track onAdd ALL notes 
   const [notes, setNotes] = useState([]);
+
+  // track login status
+  const [isLogin, setLogin] = useState(false);
+
+  const handleLogin = function() {
+    setLogin(true);
+  }
+
+  const handleLogout = function() {
+    setLogin(false);
+  }
 
   const addNote = function(note) {
     setNotes(prevNotes => {
