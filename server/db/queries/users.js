@@ -29,10 +29,10 @@ async function getUserByEmail(email) {
   }
 }
 
-async function createUser(name, email, hashedPassword) {
+async function createUser(username, email, hashedPassword) {
   try {
-    await db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-    [name, email, hashedPassword]);
+    await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
+    [username, email, hashedPassword]);
   } catch (err) {
     console.log(err);
   }

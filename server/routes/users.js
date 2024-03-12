@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/signup", async(req, res) => {
 
   // getting data from cleint side
-  const { name, email, password } = req.body
+  const { username, email, password } = req.body
   
   try {
     // check if email exists in database
@@ -22,7 +22,7 @@ router.post("/signup", async(req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hashSync(password, saltRounds);
 
-    const data = await users.createUser(name, email, hashedPassword);
+    const data = await users.createUser(username, email, hashedPassword);
     console.log(data);
     //set cookies session here
 

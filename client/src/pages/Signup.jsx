@@ -7,7 +7,7 @@ import '../styles/Signup.scss'
 const Signup = (props) => {
   // get sign up info from user
   const [formDatas, setFormDatas] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
   })
@@ -37,13 +37,13 @@ const Signup = (props) => {
       <Headers />
       <form className='signup-form' onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" value={formDatas.name} onChange={handleChange} required/>
+        <input type="text" id="username" name="username" value={formDatas.name} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={formDatas.email} onChange={handleChange} required/>
+        <input type="email" id="email" name="email" value={formDatas.email} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="password" value={formDatas.password} onChange={handleChange} required/>
+        <input type="password" id="password" name="password" value={formDatas.password} onChange={handleChange} autoComplete="new-password" required/>
         
         <button type="submit" name="submit">Sign Up</button>
       </form>
