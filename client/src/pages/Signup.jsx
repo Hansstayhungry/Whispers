@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Headers from "../components/Header";
 import axios from "axios";
@@ -7,6 +7,9 @@ import '../styles/Signup.scss'
 
 const Signup = (props) => {
   const { handleLogin } = props;
+
+  // redirect to main page using react router dom
+  const navigate = useNavigate();
 
   // get sign up info from user
   const [signupFormDatas, setSignupFormDatas] = useState({
@@ -31,10 +34,11 @@ const Signup = (props) => {
       console.log(response);
 
       // // set login state to true if sign up is successful
-      // handleLogin();
+      handleLogin();
 
-      // redirect to main page using react router dom
-      redirect('/');
+    // use navigate to redirect to main page
+      navigate('/');
+      // redirect('/');
 
     } catch (error) {
       console.error('Error during signup:', error);

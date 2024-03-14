@@ -27,12 +27,12 @@ const App = () => {
   const taskReducer = function(tasks, action) {
     switch (action.type) {
       case 'LOGIN': {
-        return [...tasks, {
+        return [{
           isLogin: true
         }]
       }
       case 'LOGOUT': {
-        return [...tasks, {
+        return [{
           isLogin: false
         }]
       }
