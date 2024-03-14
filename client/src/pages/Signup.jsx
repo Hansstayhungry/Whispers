@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { redirect } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Headers from "../components/Header";
 import axios from "axios";
 import '../styles/Signup.scss'
 
 const Signup = (props) => {
+  const { handleLogin } = props;
+
   // get sign up info from user
-  const [formDatas, setFormDatas] = useState({
+  const [signupFormDatas, setSignupFormDatas] = useState({
     username: '',
     email: '',
     password: '',
@@ -15,7 +18,7 @@ const Signup = (props) => {
   // capture user input to send over to useState above
   const handleChange = function(e) {
     const {name, value} = e.target;
-    setFormDatas(prev => {
+    setSignupFormDatas(prev => {
       return {...prev, [name]: value};
     })
   }
@@ -24,8 +27,15 @@ const Signup = (props) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/users/signup', formDatas);
+      const response = await axios.post('/users/signup', signupFormDatas);
       console.log(response);
+
+      // // set login state to true if sign up is successful
+      // handleLogin();
+
+      // redirect to main page using react router dom
+      redirect('/');
+
     } catch (error) {
       console.error('Error during signup:', error);
     }
@@ -35,15 +45,16 @@ const Signup = (props) => {
   return (
     <div>
       <Headers />
+      {/* use new-password keyword to avoid autoComplete in chrome */}
       <form className='signup-form' onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="username" name="username" value={formDatas.name} onChange={handleChange} autoComplete="new-password" required/>
+        <input type="text" id="username" name="username" value={signupFormDatas.name} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={formDatas.email} onChange={handleChange} autoComplete="new-password" required/>
+        <input type="email" id="email" name="email" value={signupFormDatas.email} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="password" value={formDatas.password} onChange={handleChange} autoComplete="new-password" required/>
+        <input type="password" id="password" name="password" value={signupFormDatas.password} onChange={handleChange} autoComplete="new-password" required/>
         
         <button type="submit" name="submit">Sign Up</button>
       </form>

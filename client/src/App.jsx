@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Header from "./components/Header";
 import Note from "./components/Note";
 import Footer from "./components/Footer";
 import CreateArea from "./components/CreateArea";
+import Status from "./components/Status";
 
 const App = () => {
 
@@ -10,16 +11,34 @@ const App = () => {
   // track onAdd ALL notes 
   const [notes, setNotes] = useState([]);
 
-  // track login status
-  const [isLogin, setLogin] = useState(false);
+  // use useReducer to handle login logout state
+  const initialTasks = {isLogin: false};
+
+  const taskReducer = function(tasks, action) {
+    switch (action.type) {
+      case 'LOGIN': {
+        return [...tasks, {
+          isLogin: true
+        }]
+      }
+      case 'LOGOUT': {
+        return [...tasks, {
+          isLogin: false
+        }]
+      }
+    }
+  }
+
+  const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
 
   const handleLogin = function() {
-    setLogin(true);
+    dispatch({type: 'LOGIN'});
   }
 
   const handleLogout = function() {
-    setLogin(false);
+    dispatch({type: 'LOGOUT'});
   }
+
 
   const addNote = function(note) {
     setNotes(prevNotes => {
@@ -35,7 +54,8 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Header></Header>
+      <Header handleLogin={handleLogin} handleLogout={handleLogout} ></Header>
+      {tasks.isLogin && <Status /> }
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {
         return (

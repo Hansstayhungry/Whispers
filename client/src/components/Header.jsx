@@ -5,7 +5,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Header = () => {
+const Header = (props) => {
   // sign in state
   const [signIn, setSignIn] = useState(false)
 

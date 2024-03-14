@@ -3,7 +3,7 @@ import pg from 'pg';
 const { Pool } = pg;
 
 const {DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT} = process.env;
-console.log(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT)
+
 const pool = new Pool({
 	user: DB_USER,
 	host: DB_HOST,
