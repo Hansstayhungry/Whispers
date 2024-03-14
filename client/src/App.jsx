@@ -4,6 +4,16 @@ import Note from "./components/Note";
 import Footer from "./components/Footer";
 import CreateArea from "./components/CreateArea";
 import Status from "./components/Status";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom";
 
 const App = () => {
 
@@ -39,7 +49,6 @@ const App = () => {
     dispatch({type: 'LOGOUT'});
   }
 
-
   const addNote = function(note) {
     setNotes(prevNotes => {
       return [...prevNotes, note];
@@ -54,6 +63,13 @@ const App = () => {
 
   return (
     <div className="app-container">
+      {/* // set up react-router for multipage support */}
+      <Routes>
+        <Route path="/home" element={<App tasks={tasks} handleLogin={handleLogin} handleLogout={handleLogout}/>} />
+        <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
+        <Route path="/signup" element={<Signup handleLogin={handleLogin}/>} />              
+      </Routes>
+    
       <Header handleLogin={handleLogin} handleLogout={handleLogout} ></Header>
       {tasks.isLogin && <Status /> }
       <CreateArea onAdd={addNote}></CreateArea>
