@@ -62,14 +62,7 @@ const App = () => {
   }
 
   return (
-    <div className="app-container">
-      {/* // set up react-router for multipage support */}
-      <Routes>
-        <Route path="/home" element={<App tasks={tasks} handleLogin={handleLogin} handleLogout={handleLogout}/>} />
-        <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
-        <Route path="/signup" element={<Signup handleLogin={handleLogin}/>} />              
-      </Routes>
-    
+    <div className="app-container">    
       <Header handleLogin={handleLogin} handleLogout={handleLogout} ></Header>
       {tasks.isLogin && <Status /> }
       <CreateArea onAdd={addNote}></CreateArea>
