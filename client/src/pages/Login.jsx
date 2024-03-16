@@ -19,6 +19,7 @@ const Login = (props) => {
   })
 
   const [loginError, setLoginError] = useState('false');
+  const [serverError, setServerError] = useState('false');
 
   const handleSubmit = async function (event) {
     event.preventDefault();
@@ -35,14 +36,11 @@ const Login = (props) => {
         // redirect('/');
         return        
       }
-
-      if (!response.data.match) {
-        setLoginError('true');
-        return
-      }
+      setLoginError('true');
 
     } catch (error) {
       console.error('Error during login:', error);
+      setServerError('true');
     }
   }
 
@@ -68,6 +66,7 @@ const Login = (props) => {
 
         <button type="submit" name="submit">Log In</button>
         {loginError === 'true' && <p>Invalid email or password, please try again</p>}
+        {serverError === 'true' && <p>Internal server error, please try again later</p>}
       </form>
       <Footer />
     </div>

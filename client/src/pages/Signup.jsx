@@ -18,6 +18,8 @@ const Signup = (props) => {
     password: '',
   })
 
+  const [signupError, setSignupError] = useState('false');
+
   // capture user input to send over to useState above
   const handleChange = function(e) {
     const {name, value} = e.target;
@@ -42,6 +44,7 @@ const Signup = (props) => {
 
     } catch (error) {
       console.error('Error during signup:', error);
+      setSignupError('true');
     }
   }
 
@@ -61,6 +64,7 @@ const Signup = (props) => {
         <input type="password" id="password" name="password" value={signupFormDatas.password} onChange={handleChange} autoComplete="new-password" required/>
         
         <button type="submit" name="submit">Sign Up</button>
+        {signupError === 'true' && <p>email exsits, please sign in, or use another email to register</p>}
       </form>
       <Footer />
     </div>
