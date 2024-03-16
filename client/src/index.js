@@ -12,20 +12,24 @@ import { useReducer } from 'react';
 // need to wrap inside a react component in order to call react hooks
   const AppRouter = () => {
     
+    // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
     // use useReducer to handle login logout state
     const initialTasks = {isLogin: false};
 
     const taskReducer = function(tasks, action) {
       switch (action.type) {
         case 'LOGIN': {
-          return [{
+          return {
             isLogin: true
-          }]
+          }
         }
         case 'LOGOUT': {
-          return [{
+          return {
             isLogin: false
-          }]
+          }
+        }
+        default: {
+          return tasks;
         }
       }
     }
@@ -44,7 +48,7 @@ import { useReducer } from 'react';
     const router = createBrowserRouter([
       {
         path: '/',
-        element: <App handleLogin={handleLogin} handleLogout={handleLogout}/>,
+        element: <App handleLogin={handleLogin} handleLogout={handleLogout} tasks={tasks}/>,
       },
       {
         path: '/login',

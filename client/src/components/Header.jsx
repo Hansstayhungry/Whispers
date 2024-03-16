@@ -6,26 +6,31 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Header = (props) => {
-  // sign in state
-  const [signIn, setSignIn] = useState(false)
 
-  // handle header title click, prevent full page reload
+  const {handleLogin, handleLogout, isLogin} = props;
+
+  // handle login state
+
+
+  // handle logout state
+
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
       <h1>Keep</h1>
     </Link>
     {/* use Link - react router instead of a href to avoid full page reload */}
+
+    {/* // conditional rendering of login/logout button */}
     <div className="sign-container">
       <span className="buttonGroup">
-        {!signIn && (
+        {!isLogin ? (
           <div><Button component={Link} to="/login" className="MuiLink-button">
             Login
           </Button><Button component={Link} to="/signup" className="MuiLink-button">
               Signup
             </Button></div>          
-        )}
-        {signIn && (
-          <Button component={Link} to="/logout" className="MuiLink-button">
+        ) : (
+          <Button component={Link} to="/" onClick={handleLogout} className="MuiLink-button">
             Logout
           </Button>          
         )}

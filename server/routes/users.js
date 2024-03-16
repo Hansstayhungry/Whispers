@@ -46,10 +46,11 @@ router.post("/login", async(req, res) => {
 
     const match = await bcrypt.compare(password, userHashedPassword);
 
+    // sending extra match data for tracking incorrect password error
     if (match) {
-      res.json({ message: 'login successful' });
+      res.json({ match: true, message: 'login successful' });
     } else {
-      res.json({ message: 'invalid email or password' });
+      res.json({ match: false, message: 'invalid email or password' });
     }
   } catch (error) {
     console.log(error);

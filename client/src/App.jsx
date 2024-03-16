@@ -4,50 +4,16 @@ import Note from "./components/Note";
 import Footer from "./components/Footer";
 import CreateArea from "./components/CreateArea";
 import Status from "./components/Status";
-import Login from './pages/Login';
-import Signup from './pages/Signup';
 
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
+const App = (props) => {
 
-const App = () => {
+  const {handleLogin, handleLogout, tasks} = props;
+  const {isLogin} = tasks;
 
   // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
   // track onAdd ALL notes 
   const [notes, setNotes] = useState([]);
 
-  // use useReducer to handle login logout state
-  const initialTasks = {isLogin: false};
-
-  const taskReducer = function(tasks, action) {
-    switch (action.type) {
-      case 'LOGIN': {
-        return [{
-          isLogin: true
-        }]
-      }
-      case 'LOGOUT': {
-        return [{
-          isLogin: false
-        }]
-      }
-    }
-  }
-
-  const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
-
-  const handleLogin = function() {
-    dispatch({type: 'LOGIN'});
-  }
-
-  const handleLogout = function() {
-    dispatch({type: 'LOGOUT'});
-  }
 
   const addNote = function(note) {
     setNotes(prevNotes => {
@@ -63,18 +29,17 @@ const App = () => {
 
   return (
     <div className="app-container">    
-      <Header handleLogin={handleLogin} handleLogout={handleLogout} ></Header>
+      <Header handleLogin={handleLogin} handleLogout={handleLogout} isLogin={isLogin}></Header>
       {tasks.isLogin && <Status /> }
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {
         return (
           <Note key={index} id={index} title={note.title} content={note.content}
-          onDelete={deleteNote}></Note>            
+          onDelete={deleteNote}></Note>
         )
       })}
       <Footer></Footer>
     </div>
-      
   )
 }
 
