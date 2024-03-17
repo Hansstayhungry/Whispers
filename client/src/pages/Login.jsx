@@ -28,8 +28,9 @@ const Login = (props) => {
       console.log(response);
 
       if (response.data.match) {
-        // // set login state to true if sign up is successful
-        handleLogin();
+        // // set login state to true if sign up is successful, and pass user info to parent component
+        handleLogin(response.data.userInfo);
+        console.log("response.data.userInfo", response.data.userInfo)
 
         // use navigate to redirect to main page
         navigate('/');

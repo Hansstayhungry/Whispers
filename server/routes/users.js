@@ -48,12 +48,19 @@ router.post("/login", async(req, res) => {
       return res.json({ match: false, error: 'Invalid email or password' });
     }
     const userHashedPassword = user[0].password;
+    const username = user[0].username;
+    const useremail = user[0].email;
+
+    const userInfo = {
+      username: username,
+      email: useremail
+    }
 
     const match = await bcrypt.compare(password, userHashedPassword);
 
     // sending extra match data for tracking incorrect password error
     if (match) {
-      res.json({ match: true, message: 'login successful' });
+      res.json({ userInfo: userInfo, match: true, message: 'login successful' });
     } else {
       res.json({ match: false, message: 'invalid email or password' });
     }

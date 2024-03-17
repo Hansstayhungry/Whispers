@@ -3,11 +3,8 @@ import "../styles/Status.scss";
 
 const Status = (props) => {
 
-  const {id, title, content} = props;
 
-  const handleDelete = function() {
-    props.onDelete(id)
-  }
+  const {tasks} = props;
 
   return (
     <div className="status-container">

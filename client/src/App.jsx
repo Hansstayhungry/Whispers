@@ -30,7 +30,7 @@ const App = (props) => {
   return (
     <div className="app-container">    
       <Header handleLogin={handleLogin} handleLogout={handleLogout} isLogin={isLogin}></Header>
-      {tasks.isLogin && <Status /> }
+      {isLogin && <Status tasks={tasks}/>}
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {
         return (

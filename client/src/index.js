@@ -19,9 +19,10 @@ import { useReducer } from 'react';
     const taskReducer = function(tasks, action) {
       switch (action.type) {
         case 'LOGIN': {
-          return {
-            isLogin: true
-          }
+          return ({
+            isLogin: true,
+            userInfo: action.userInfo
+          })
         }
         case 'LOGOUT': {
           return {
@@ -36,8 +37,8 @@ import { useReducer } from 'react';
 
       const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
 
-      const handleLogin = function() {
-        dispatch({type: 'LOGIN'});
+      const handleLogin = function(userInfo) {
+        dispatch({type: 'LOGIN', userInfo});
       }
       
       const handleLogout = function() {
