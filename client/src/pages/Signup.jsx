@@ -35,8 +35,8 @@ const Signup = (props) => {
       const response = await axios.post('/users/signup', signupFormDatas);
       console.log(response);
 
-      // // set login state to true if sign up is successful
-      handleLogin();
+      // set login state to true if sign up is successful
+      handleLogin(response.data.userInfo);
 
     // use navigate to redirect to main page
       navigate('/');

@@ -33,6 +33,10 @@ async function createUser(username, email, hashedPassword) {
   try {
     await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
     [username, email, hashedPassword]);
+
+    const newUser = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    return newUser.rows;
+    
   } catch (err) {
     console.log(err);
   }

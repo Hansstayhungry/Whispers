@@ -16,20 +16,27 @@ router.post("/signup", async(req, res) => {
     if (user[0]) {
       res.status(409).json({ message: 'account already exists' })
       return;
+    } else {
+      //hash password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hashSync(password, saltRounds);
+
+      const newUser = await users.createUser(username, email, hashedPassword);
+      //set cookies session here
+
+
+
+      const newUsername = newUser[0].username;
+      const newUseremail = newUser[0].email;
+
+      const userInfo = {
+        username: newUsername,
+        email: newUseremail
+      }
+
+      res.json({ userInfo: userInfo, message: 'User registered successfully'});      
     }
 
-    //hash password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hashSync(password, saltRounds);
-
-    const data = await users.createUser(username, email, hashedPassword);
-    console.log(data);
-    //set cookies session here
-
-
-
-
-    res.status(201).json({ message: 'User registered successfully'});
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal Server Error'});
