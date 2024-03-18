@@ -30,7 +30,6 @@ const Login = (props) => {
       if (response.data.match) {
         // // set login state to true if sign up is successful, and pass user info to parent component
         handleLogin(response.data.userInfo);
-        console.log("response.data.userInfo", response.data.userInfo)
 
         // use navigate to redirect to main page
         navigate('/');
@@ -60,7 +59,8 @@ const Login = (props) => {
       <Headers />
       <form className='login-form' onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={loginFormDatas.email} onChange={handleChange} required />
+        <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+        value={loginFormDatas.email} onChange={handleChange} required />
 
         <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" value={loginFormDatas.password} onChange={handleChange} required />

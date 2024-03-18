@@ -55,10 +55,12 @@ const Signup = (props) => {
       {/* use new-password keyword to avoid autoComplete in chrome */}
       <form className='signup-form' onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="username" name="username" value={signupFormDatas.name} onChange={handleChange} autoComplete="new-password" required/>
+        <input type="text" id="username" name="username" maxLength={50}
+        value={signupFormDatas.name} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={signupFormDatas.email} onChange={handleChange} autoComplete="new-password" required/>
+        <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+        value={signupFormDatas.email} onChange={handleChange} autoComplete="new-password" required/>
 
         <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" value={signupFormDatas.password} onChange={handleChange} autoComplete="new-password" required/>

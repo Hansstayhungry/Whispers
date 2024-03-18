@@ -23,7 +23,12 @@ router.post("/signup", async(req, res) => {
 
       const newUser = await users.createUser(username, email, hashedPassword);
       //set cookies session here
-
+      res.cookie('user', newUser[0].id,
+      { maxAge: 1 * 24 * 60 * 1000, // 1 day expiration;
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true
+      });
 
 
       const newUsername = newUser[0].username;
@@ -67,6 +72,12 @@ router.post("/login", async(req, res) => {
 
     // sending extra match data for tracking incorrect password error
     if (match) {
+      res.cookie('userData', user[0].id,
+      { maxAge: 1 * 24 * 60 * 1000, // 1 day expiration;
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true
+      });
       res.json({ userInfo: userInfo, match: true, message: 'login successful' });
     } else {
       res.json({ match: false, message: 'invalid email or password' });
