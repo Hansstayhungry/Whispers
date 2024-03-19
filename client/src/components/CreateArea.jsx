@@ -65,7 +65,7 @@ const CreateArea = (props) => {
         {showInput && (
           <input name="title" onChange={handleChange} value={note.title} placeholder="Title" autoFocus/>
           )}
-        <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={note.content} placeholder="Take a note..." rows={showInput ? 3 : 1} />
+        <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={note.content} placeholder="Whisper your love..." rows={showInput ? 5 : 1} />
         <Zoom in={showInput ? true : false} ><Fab onClick={handleSubmission}>
             <AddIcon />
           </Fab>

@@ -7,7 +7,7 @@ import Status from "../components/Status";
 
 const Home = (props) => {
 
-  const {handleLogin, handleLogout, user} = props;
+  const {handleLogin, handleLogout, user, loading} = props;
 
   // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
   // track onAdd ALL notes 
@@ -27,7 +27,7 @@ const Home = (props) => {
 
   return (
     <div className="app-container">    
-      <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user}></Header>
+      <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}></Header>
       {user && <Status user={user}/>}
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {

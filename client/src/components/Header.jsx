@@ -7,30 +7,30 @@ import { useState } from "react";
 
 const Header = (props) => {
 
-  const {handleLogout, user} = props;
+  const {handleLogout, user, loading} = props;
 
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
-      <h1>Keep</h1>
+      <h1>Whispers</h1>
     </Link>
     {/* use Link - react router instead of a href to avoid full page reload */}
 
     {/* // conditional rendering of login/logout button */}
-    <div className="sign-container">
+    {!loading && (<div className="sign-container">
       <span className="buttonGroup">
-        {!user ? (
+        {user ? (
+          <Button component={Link} to="/" onClick={handleLogout} className="MuiLink-button">
+            Logout
+          </Button>          
+        ) : (
           <div><Button component={Link} to="/login" className="MuiLink-button">
             Login
           </Button><Button component={Link} to="/signup" className="MuiLink-button">
               Signup
             </Button></div>
-        ) : (
-          <Button component={Link} to="/" onClick={handleLogout} className="MuiLink-button">
-            Logout
-          </Button>          
-        )}
+        ) }
       </span>
-    </div>
+    </div>)}
   </header>)
 }
 

@@ -24,7 +24,6 @@ app.use(session({
     expires: 60 * 60 * 24}
 }));
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/cats', catsRoutes);

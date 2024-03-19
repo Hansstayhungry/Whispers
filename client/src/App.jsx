@@ -11,6 +11,9 @@ import axios from 'axios';
 const App = () => {
   // State to manage the user's logged-in status
   const [user, setUser] = useState(null);
+  
+  // State to manage loading status
+  const [loading, setLoading] = useState(true);
 
   // Function to handle login
   const handleLogin = (userData) => {
@@ -30,6 +33,9 @@ const App = () => {
       .then(response => {
         setUser(response.data.user);
       })
+      .then(() => {
+        setLoading(false);
+      })
       .catch(error => {
         console.error('Error checking logged-in user:', error);
       });
@@ -38,7 +44,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user}/>,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
     },
     {
       path: '/login',
