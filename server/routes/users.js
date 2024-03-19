@@ -22,24 +22,14 @@ router.post("/signup", async(req, res) => {
       const hashedPassword = await bcrypt.hashSync(password, saltRounds);
 
       const newUser = await users.createUser(username, email, hashedPassword);
-      //set cookies session here
-      res.cookie('user', newUser[0].id,
-      { maxAge: 1 * 24 * 60 * 1000, // 1 day expiration;
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true
-      });
-
-
-      const newUsername = newUser[0].username;
-      const newUseremail = newUser[0].email;
-
-      const userInfo = {
-        username: newUsername,
-        email: newUseremail
+      // set session data
+      req.session.user = {
+        id: newUser[0].id,
+        username: newUser[0].username,
+        email: newUser[0].email
       }
 
-      res.json({ userInfo: userInfo, message: 'User registered successfully'});      
+      res.json({ isLogin: true, userInfo: req.session.user, message: 'User registered successfully'});      
     }
 
   } catch (error) {
@@ -57,35 +47,37 @@ router.post("/login", async(req, res) => {
 
     // If no user found with the given email
     if (!user || user.length === 0) {
-      return res.json({ match: false, error: 'Invalid email or password' });
+      return res.json({ error: 'Invalid email or password' });
     }
     const userHashedPassword = user[0].password;
+    const userId = user[0].id;
     const username = user[0].username;
     const useremail = user[0].email;
-
-    const userInfo = {
-      username: username,
-      email: useremail
-    }
 
     const match = await bcrypt.compare(password, userHashedPassword);
 
     // sending extra match data for tracking incorrect password error
     if (match) {
-      res.cookie('userData', user[0].id,
-      { maxAge: 1 * 24 * 60 * 1000, // 1 day expiration;
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true
-      });
-      res.json({ userInfo: userInfo, match: true, message: 'login successful' });
+      // set session data
+      req.session.user = {
+        id: userId,
+        username: username,
+        email: useremail
+      }
+      console.log('user logged in:', req.session.user);
+      res.json({ isLogin: true, userInfo: req.session.user, message: 'login successful' });
     } else {
-      res.json({ match: false, message: 'invalid email or password' });
+      res.json({ message: 'invalid email or password' });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error'});
   }
+});
+
+router.get("/logout", (req, res) => {
+  res.clearCookie('userData');
+  res.json({ message: 'logout successful' });
 });
 
 export default router;
