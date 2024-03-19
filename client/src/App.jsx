@@ -1,19 +1,18 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import Header from "./components/Header";
 import Note from "./components/Note";
 import Footer from "./components/Footer";
 import CreateArea from "./components/CreateArea";
 import Status from "./components/Status";
+import axios from "axios";
 
 const App = (props) => {
 
-  const {handleLogin, handleLogout, tasks} = props;
-  const {isLogin} = tasks;
+  const {handleLogin, handleLogout, user} = props;
 
   // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
   // track onAdd ALL notes 
   const [notes, setNotes] = useState([]);
-
 
   const addNote = function(note) {
     setNotes(prevNotes => {
@@ -29,8 +28,8 @@ const App = (props) => {
 
   return (
     <div className="app-container">    
-      <Header handleLogin={handleLogin} handleLogout={handleLogout} isLogin={isLogin}></Header>
-      {isLogin && <Status tasks={tasks}/>}
+      <Header handleLogin={handleLogin} handleLogout={handleLogout}></Header>
+      {user && <Status user={user}/>}
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {
         return (

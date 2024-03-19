@@ -7,12 +7,13 @@ import { useState } from "react";
 
 const Header = (props) => {
 
-  const {handleLogin, handleLogout, isLogin} = props;
+  const {handleLogout, user} = props;
 
   // handle login state
 
 
   // handle logout state
+
 
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
@@ -23,12 +24,12 @@ const Header = (props) => {
     {/* // conditional rendering of login/logout button */}
     <div className="sign-container">
       <span className="buttonGroup">
-        {!isLogin ? (
+        {!user ? (
           <div><Button component={Link} to="/login" className="MuiLink-button">
             Login
           </Button><Button component={Link} to="/signup" className="MuiLink-button">
               Signup
-            </Button></div>          
+            </Button></div>
         ) : (
           <Button component={Link} to="/" onClick={handleLogout} className="MuiLink-button">
             Logout

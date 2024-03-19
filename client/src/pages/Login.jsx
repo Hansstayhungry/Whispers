@@ -21,13 +21,16 @@ const Login = (props) => {
   const [loginError, setLoginError] = useState('false');
   const [serverError, setServerError] = useState('false');
 
+  // set up axios to send cookies
+  axios.defaults.withCredentials = true
+
   const handleSubmit = async function (event) {
     event.preventDefault();
     try {
       const response = await axios.post('/users/login', loginFormDatas);
-      console.log(response);
+      console.log("handleSubmit:", response);
 
-      if (response.data.match) {
+      if (response.data.userInfo) {
         // // set login state to true if sign up is successful, and pass user info to parent component
         handleLogin(response.data.userInfo);
 
@@ -35,8 +38,9 @@ const Login = (props) => {
         navigate('/');
         // redirect('/');
         return        
+      } else {
+        setLoginError('true');        
       }
-      setLoginError('true');
 
     } catch (error) {
       console.error('Error during login:', error);
