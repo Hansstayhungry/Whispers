@@ -9,12 +9,6 @@ const Header = (props) => {
 
   const {handleLogout, user} = props;
 
-  // handle login state
-
-
-  // handle logout state
-
-
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
       <h1>Keep</h1>

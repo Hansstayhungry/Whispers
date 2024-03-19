@@ -33,13 +33,13 @@ app.use('/cats', catsRoutes);
 app.use('/users', users)
 
 // check if user is logged in when refresh the home page
-app.get("/", (req, res) => {
+app.get("/checkLoggedInUser", (req, res) => {
   console.log("sent")
   if (req.session.user) {
     console.log('user:', req.session.user);
-    res.json({ isLogin: true, user: req.session.user });
+    res.json({ user: req.session.user });
   } else {
-    res.json({ isLogin: false });
+    res.json({ user: null});
   }
 });
 

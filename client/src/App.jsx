@@ -1,44 +1,61 @@
-import React, { useState, useReducer, useEffect } from "react";
-import Header from "./components/Header";
-import Note from "./components/Note";
-import Footer from "./components/Footer";
-import CreateArea from "./components/CreateArea";
-import Status from "./components/Status";
-import axios from "axios";
+import React from 'react';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import NoPage from './pages/NoPage';
+import Home from './pages/Home';
+import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Routes, Route, RouterProvider } from 'react-router-dom';
+import { create } from '@mui/material/styles/createTransitions';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const App = (props) => {
+const App = () => {
+  // State to manage the user's logged-in status
+  const [user, setUser] = useState(null);
 
-  const {handleLogin, handleLogout, user} = props;
+  // Function to handle login
+  const handleLogin = (userData) => {
+    // Login logic...
+    setUser(userData);
+  };
 
-  // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
-  // track onAdd ALL notes 
-  const [notes, setNotes] = useState([]);
+  // Function to handle logout
+  const handleLogout = () => {
+    // Logout logic...
+    setUser(null);
+  };
 
-  const addNote = function(note) {
-    setNotes(prevNotes => {
-      return [...prevNotes, note];
-    });
-  }
+  // Effect to check for logged-in user on initial load
+  useEffect(() => {
+    axios.get('/checkLoggedInUser')
+      .then(response => {
+        setUser(response.data.user);
+      })
+      .catch(error => {
+        console.error('Error checking logged-in user:', error);
+      });
+  }, []);
 
-  const deleteNote = function(id) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((prevNote, index) => (index !== id))
-    })
-  }
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user}/>,
+    },
+    {
+      path: '/login',
+      element: <Login handleLogin={handleLogin} handleLogout={handleLogout}/>,
+    },
+    {
+      path: '/signup',
+      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout}/>,
+    },
+    {
+      path: '*',
+      element: <NoPage />,
+    }
+  ]);
 
   return (
-    <div className="app-container">    
-      <Header handleLogin={handleLogin} handleLogout={handleLogout}></Header>
-      {user && <Status user={user}/>}
-      <CreateArea onAdd={addNote}></CreateArea>
-      {notes.map((note, index) => {
-        return (
-          <Note key={index} id={index} title={note.title} content={note.content}
-          onDelete={deleteNote}></Note>
-        )
-      })}
-      <Footer></Footer>
-    </div>
+    <RouterProvider router={router} />
   )
 }
 
