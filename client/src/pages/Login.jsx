@@ -28,7 +28,6 @@ const Login = (props) => {
     event.preventDefault();
     try {
       const response = await axios.post('/users/login', loginFormDatas);
-      console.log("handleSubmit:", response);
 
       if (response.data.userInfo) {
         // // set login state to true if sign up is successful, and pass user info to parent component

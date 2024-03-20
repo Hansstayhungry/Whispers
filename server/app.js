@@ -31,15 +31,7 @@ app.use('/cats', catsRoutes);
 //combine since both paths are using users route
 app.use('/users', users)
 
-// check if user is logged in when refresh the home page
-app.get("/checkLoggedInUser", (req, res) => {
-  console.log("sent")
-  if (req.session.user) {
-    console.log('user:', req.session.user);
-    res.json({ user: req.session.user });
-  } else {
-    res.json({ user: null});
-  }
-});
+//handle posts routes
+app.use('/posts', posts)
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from "react";
 import Header from "../components/Header";
-import Note from "../components/Note";
+import Post from "../components/Post";
 import Footer from "../components/Footer";
 import CreateArea from "../components/CreateArea";
 import Status from "../components/Status";
@@ -32,8 +32,8 @@ const Home = (props) => {
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {
         return (
-          <Note key={index} id={index} title={note.title} content={note.content}
-          onDelete={deleteNote}></Note>
+          <Post key={index} id={index} title={note.title} content={note.content}
+          onDelete={deleteNote}></Post>
         )
       })}
       <Footer></Footer>

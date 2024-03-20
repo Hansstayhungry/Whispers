@@ -17,19 +17,24 @@ const App = () => {
 
   // Function to handle login
   const handleLogin = (userData) => {
-    // Login logic...
     setUser(userData);
   };
 
   // Function to handle logout
   const handleLogout = () => {
-    // Logout logic...
+    axios.get('/users/logout')
+      .then(() => {
+        setUser(null);
+      })
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
     setUser(null);
   };
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    axios.get('/checkLoggedInUser')
+    axios.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
       })

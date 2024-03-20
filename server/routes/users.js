@@ -75,8 +75,20 @@ router.post("/login", async(req, res) => {
   }
 });
 
+// check if user is logged in when refresh the home page
+router.get("/checkLoggedInUser", (req, res) => {
+  console.log("sent")
+  if (req.session.user) {
+    console.log('user:', req.session.user);
+    res.json({ user: req.session.user });
+  } else {
+    res.json({ user: null});
+  }
+});
+
+// clear cookies and session data when user logs out
 router.get("/logout", (req, res) => {
-  res.clearCookie('userData');
+  req.session.destroy();
   res.json({ message: 'logout successful' });
 });
 

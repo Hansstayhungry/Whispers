@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import "../styles/Note.scss";
 
-const Note = (props) => {
+const Post = (props) => {
 
   const {id, title, content} = props;
 
@@ -27,4 +27,4 @@ const Note = (props) => {
   )
 }
 
-export default Note;
+export default Post;
