@@ -25,6 +25,7 @@ const CreateArea = (props) => {
     setNote(prev => {
       return {
         ...prev,
+        user_id: props.user['id'],
         [name]: value
       }
     })

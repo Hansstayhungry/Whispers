@@ -31,7 +31,7 @@ const Home = (props) => {
       <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}></Header>
       {user && <Navbar user={user}></Navbar>}
       {user && <Status user={user}/>}
-      <CreateArea onAdd={addNote}></CreateArea>
+      <CreateArea onAdd={addNote} user={user}></CreateArea>
       {notes.map((note, index) => {
         return (
           <Post key={index} id={index} title={note.title} content={note.content}
