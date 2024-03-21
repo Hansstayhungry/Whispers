@@ -4,6 +4,7 @@ import Post from "../components/Post";
 import Footer from "../components/Footer";
 import CreateArea from "../components/CreateArea";
 import Status from "../components/Status";
+import Navbar from "../components/Navbar";
 
 const Home = (props) => {
 
@@ -28,6 +29,7 @@ const Home = (props) => {
   return (
     <div className="app-container">    
       <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}></Header>
+      {user && <Navbar user={user}></Navbar>}
       {user && <Status user={user}/>}
       <CreateArea onAdd={addNote}></CreateArea>
       {notes.map((note, index) => {

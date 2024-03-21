@@ -19,9 +19,13 @@ const Header = (props) => {
     {!loading && (<div className="sign-container">
       <span className="buttonGroup">
         {user ? (
+          <div><Button component={Link} to="/link" className="MuiLink-button">
+          Link
+          </Button>
+
           <Button component={Link} to="/" onClick={handleLogout} className="MuiLink-button">
             Logout
-          </Button>          
+          </Button></div>         
         ) : (
           <div><Button component={Link} to="/login" className="MuiLink-button">
             Login

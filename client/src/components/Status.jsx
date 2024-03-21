@@ -3,10 +3,12 @@ import "../styles/Status.scss";
 
 const Status = (props) => {
 
-  const {user} = props;
+  const {link, handleLink, user} = props;
+
   return (
     <div className="status-container">
-      <h2>Welcome back! {user.username}</h2>
+      <h2>Welcome back, {user.username}!</h2>
+      {!link && <h2>You haven't linked with your partner, please use top right Link button to link now</h2>}
     </div>
   )
 }

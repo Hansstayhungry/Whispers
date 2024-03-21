@@ -9,6 +9,7 @@ import session from 'express-session';
 
 import catsRoutes from './routes/catsRoutes.js';
 import users from './routes/users.js';
+import posts from './routes/posts.js';
 
 const app = express();
 

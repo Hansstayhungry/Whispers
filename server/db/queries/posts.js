@@ -19,7 +19,7 @@ async function createPost(title, content, user_id) {
 }
 
 async function updatePost(id, title, content) {
-  const updatedPost = await db.query('UPDATE posts SET title = $1, content = $2 WHERE id = $3 RETURNING *',
+  const updatedPost = await db.query('UPDATE posts SET title = $1, content = $2, WHERE id = $3 RETURNING *',
   [title, content, id]);
   return updatedPost.rows;
 }

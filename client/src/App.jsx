@@ -3,6 +3,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NoPage from './pages/NoPage';
 import Home from './pages/Home';
+import Link from './pages/Link';
+import ToMe from './pages/ToMe';
+import ToTa from './pages/ToTa';
 import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Routes, Route, RouterProvider } from 'react-router-dom';
 import { create } from '@mui/material/styles/createTransitions';
 import { useState, useEffect } from 'react';
@@ -14,6 +17,9 @@ const App = () => {
   
   // State to manage loading status
   const [loading, setLoading] = useState(true);
+
+  // state to manage if user is linked with another user
+  const [link, setLink] = useState(false);
 
   // Function to handle login
   const handleLogin = (userData) => {
@@ -32,6 +38,11 @@ const App = () => {
     setUser(null);
   };
 
+  // handle link
+  const handleLink = () => {
+    setLink(true);
+  }
+
   // Effect to check for logged-in user on initial load
   useEffect(() => {
     axios.get('users/checkLoggedInUser')
@@ -49,7 +60,8 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}
+      handleLink={handleLink} link={link}/>,
     },
     {
       path: '/login',
@@ -62,6 +74,19 @@ const App = () => {
     {
       path: '*',
       element: <NoPage />,
+    }, 
+    {
+      path: '/to-me',
+      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
+    },
+    {
+      path: '/to-ta',
+      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
+    },
+    {
+      path: '/link',
+      element: <Link handleLink={handleLink} link={link}
+        handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>
     }
   ]);
 

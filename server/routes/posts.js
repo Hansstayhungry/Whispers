@@ -4,7 +4,7 @@ import posts from "../db/queries/posts.js";
 const router = express.Router();
 
 // get all posts
-router.post('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const allPosts = await posts.getAllPosts();
     res.json(allPosts);
@@ -15,7 +15,7 @@ router.post('/posts', async (req, res) => {
 });
 
 // get a single post
-router.post('/posts/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const post = await posts.getPostById(id);
@@ -27,7 +27,7 @@ router.post('/posts/:id', async (req, res) => {
 });
 
 // create a new post
-router.post('/posts/create', async (req, res) => {
+router.post('/create', async (req, res) => {
   const { title, content, user_id } = req.body;
   try {
     const newPost = await posts.createPost(title, content, user_id);
@@ -39,7 +39,7 @@ router.post('/posts/create', async (req, res) => {
 });
 
 // update a post
-router.post('/posts/update/:id', async (req, res) => {
+router.post('/update/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
   try {
@@ -52,7 +52,7 @@ router.post('/posts/update/:id', async (req, res) => {
 });
 
 // delete a post
-router.post('/posts/delete/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const deletedPost = await posts.deletePost(id);
@@ -64,7 +64,7 @@ router.post('/posts/delete/:id', async (req, res) => {
 });
 
 // get all posts by user id
-router.post('/posts/user/:user_id', async (req, res) => {
+router.get('/user/:user_id', async (req, res) => {
   const { user_id } = req.params;
   try {
     const userPosts = await posts.getPostsByUserId(user_id);
