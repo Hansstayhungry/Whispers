@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Zoom } from "@mui/material";
 import "../styles/CreateArea.scss";
@@ -32,8 +33,9 @@ const CreateArea = (props) => {
   // prevent submission button refresh default
   // add note to app page
   const handleSubmission = function (e) {
-    props.onAdd(note);
+    // props.onAdd(note);
     e.preventDefault();
+    axios.post('/posts/create', note)
 
     clearInput()
   }

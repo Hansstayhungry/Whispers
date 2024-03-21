@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
 
   const {user} = props;
-  console.log(user);
   return (
     <nav className="navbar-container">
       <div className="nav-links">

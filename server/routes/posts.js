@@ -68,6 +68,7 @@ router.get('/user/:user_id', async (req, res) => {
   const { user_id } = req.params;
   try {
     const userPosts = await posts.getPostsByUserId(user_id);
+    console.log('userPosts:', userPosts);
     res.json(userPosts);
   } catch (error) {
     console.log(error);

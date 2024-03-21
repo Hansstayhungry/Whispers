@@ -57,6 +57,15 @@ const App = () => {
       });
   }, []);
 
+  // // if not logged in, redirect to home page
+  // const PrivateRoute = ({ element, path }) => {
+  //   return user ? (
+  //     element
+  //   ) : (
+  //     <Navigate to="/login" replace state={{ from: path }} />
+  //   );
+  // };
+
   const router = createBrowserRouter([
     {
       path: '/',
