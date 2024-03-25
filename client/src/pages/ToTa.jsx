@@ -16,8 +16,8 @@ const ToTa = (props) => {
     try {
       const response = await axios.get(`/posts/user/${user['id']}`);
       console.log("response", response);
-      if (response.length === 0) {
-        setPosts(response);
+      if (response.data.length !== 0) {
+        setPosts(response.data);
       }
     } catch (error) {
       console.error('Error getting all posts by user id:', error);
@@ -36,14 +36,14 @@ const ToTa = (props) => {
         <h2>ToTa</h2>
         <div className="posts-container">
           {/* map through all posts and display them */}
-          {/* {posts.map((post, index) => {
+          {posts.map((post, index) => {
             return (
               <div key={index} className="post">
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
               </div>
             )
-          })} */}
+          })}
           </div>
       </div>
     </div>
