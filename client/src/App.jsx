@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Link from './pages/Link';
 import ToMe from './pages/ToMe';
 import ToTa from './pages/ToTa';
-import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Routes, Route, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Routes, Route, RouterProvider, Navigate } from 'react-router-dom';
 import { create } from '@mui/material/styles/createTransitions';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -39,8 +39,10 @@ const App = () => {
   };
 
   // handle link
-  const handleLink = () => {
-    setLink(true);
+  const handleLink = (e) => {
+    e.preventDefault();
+    console.log("setLink triggered")
+    //setLink(true);
   }
 
   // Effect to check for logged-in user on initial load
@@ -69,16 +71,15 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}
-      handleLink={handleLink} link={link}/>,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLink={handleLink} link={link} />,
     },
     {
       path: '/login',
-      element: <Login handleLogin={handleLogin} handleLogout={handleLogout}/>,
+      element: <Login handleLogin={handleLogin} handleLogout={handleLogout} />,
     },
     {
       path: '/signup',
-      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout}/>,
+      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout} />,
     },
     {
       path: '*',
@@ -86,19 +87,24 @@ const App = () => {
     }, 
     {
       path: '/to-me',
-      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
+      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />,
     },
     {
       path: '/to-ta',
-      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>,
+      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />,
     },
+
+    // redirect to home page if not logged in
     {
       path: '/link',
-      element: <Link handleLink={handleLink} link={link}
-        handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}/>
-    }
+      element: user ? (
+        <Link handleLink={handleLink} link={link} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+      ) : (
+        <Navigate to='/' />
+      ),
+    },
   ]);
-
+  
   return (
     <RouterProvider router={router} />
   )

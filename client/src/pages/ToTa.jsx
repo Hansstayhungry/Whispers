@@ -8,7 +8,7 @@ const ToTa = (props) => {
   const {user, link, handleLogout} = props;
 
   // track every single posts state
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState([{content: "No post yet!"}]);
 
   // get all posts by user id
 

@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS posts CASCADE;
+-- CREATE invitations
+CREATE TABLE invitations (
+  id SERIAL PRIMARY KEY,
+  code VARCHAR(10) NOT NULL,
+  inviter INTEGER REFERENCES users(id),
+  invitee INTEGER REFERENCES users(id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

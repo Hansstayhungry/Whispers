@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// get a single post
+// get a single post by post id
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {

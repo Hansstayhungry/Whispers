@@ -10,6 +10,7 @@ import session from 'express-session';
 import catsRoutes from './routes/catsRoutes.js';
 import users from './routes/users.js';
 import posts from './routes/posts.js';
+import invitations from './routes/invitations.js';
 
 const app = express();
 
@@ -30,9 +31,12 @@ app.use(express.json());
 app.use('/cats', catsRoutes);
 
 //combine since both paths are using users route
-app.use('/users', users)
+app.use('/users', users);
 
 //handle posts routes
-app.use('/posts', posts)
+app.use('/posts', posts);
+
+//handle two user links
+app.use('/invitations', invitations);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
