@@ -10,18 +10,22 @@ router.post("/create", async(req, res) => {
 
   // getting invitee email from cleint side form
   const { inviteeEmail, code } = req.body;
+  console.log("inviteeEmail", inviteeEmail, "code", code);
 
   // getting inviter info from session, and deconstrcut
   const { id: inviterId, username: inviterUsername, email: inviterEmail } = req.session.user;
+  console.log("inviterId", inviterId, "inviterUsername", inviterUsername, "inviterEmail", inviterEmail);
 
   try {
     // feed info to createLink function
     const invitee = await users.getUserByEmail(inviteeEmail);
+    console.log("invitee", invitee);
+    const inviteeId = invitee[0].id;
 
     if (!invitee || invitee.length === 0) {
       return res.json({ error: 'Your partner has not registgered yet, please inform ta to register first' });
     }
-    const newLink = await invitations.createLink(inviterEmail, inviteeEmail, code);
+    const newLink = await invitations.createLink(inviterId, inviteeId, code);
     res.json({ linkIsSent: true, message: 'invitation sent successfully' });
 
   } catch (error) {
@@ -33,56 +37,26 @@ router.post("/create", async(req, res) => {
 // to manage code verification by comparing if code received and email match in invite form
 router.post("/verification", async(req, res) => {
 
-  const { email, password } = req.body
+  // get received code from client side
+  const { receivedCode } = req.body
+
+  // now get invitee info from session
+  const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
 
   try {
-    const user = await users.getUserByEmail(email);
 
-    // If no user found with the given email
-    if (!user || user.length === 0) {
-      return res.json({ error: 'Invalid email or password' });
-    }
-    const userHashedPassword = user[0].password;
-    const userId = user[0].id;
-    const username = user[0].username;
-    const useremail = user[0].email;
-
-    const match = await bcrypt.compare(password, userHashedPassword);
-
-    // sending extra match data for tracking incorrect password error
-    if (match) {
-      // set session data
-      req.session.user = {
-        id: userId,
-        username: username,
-        email: useremail
-      }
-      console.log('user logged in:', req.session.user);
-      res.json({ isLogin: true, userInfo: req.session.user, message: 'login successful' });
+    const data = await invitations.getMatchByCode(receivedCode);
+    if (!data || data.length === 0) {
+      return res.json({ error: 'Invalid code' });
+    } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
+      return res.json({ error: 'Invalid code' });
     } else {
-      res.json({ message: 'invalid email or password' });
+      res.json({ codeIsMatched: true, message: 'Parnter linked successfully' });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error'});
   }
-});
-
-// check if user is logged in when refresh the home page
-router.get("/checkLoggedInUser", (req, res) => {
-  console.log("sent")
-  if (req.session.user) {
-    console.log('user:', req.session.user);
-    res.json({ user: req.session.user });
-  } else {
-    res.json({ user: null});
-  }
-});
-
-// clear cookies and session data when user logs out
-router.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.json({ message: 'logout successful' });
 });
 
 export default router;

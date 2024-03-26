@@ -29,17 +29,26 @@ async function getUserByEmail(email) {
   }
 }
 
-async function createLink(inviterEmail, inviteeEmail, code) {
+async function createLink(inviterId, inviteeId, code) {
   try {
     await db.query('INSERT INTO invitations (inviter, invitee, code) VALUES ($1, $2, $3)',
-    [inviterEmail, inviteeEmail, code]);
+    [inviterId, inviteeId, code]);
 
-    const newUser = await db.query('SELECT * FROM users WHERE email = $1', [email]);
-    return newUser.rows;
+    const newLink = await db.query('SELECT * FROM invitations WHERE code = $1', [code]);
+    return newLink.rows;
     
   } catch (err) {
     console.log(err);
   }
 }
 
-export default { getAllUsers, getUserById, getUserByEmail, createLink };
+async function getMatchByCode(email) {
+  try {
+    const data = await db.query('SELECT * FROM invitations WHERE code = $1', [code]);
+    return data.rows;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export default { getAllUsers, getUserById, getUserByEmail, createLink, getMatchByCode };
