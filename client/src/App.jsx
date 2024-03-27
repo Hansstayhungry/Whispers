@@ -78,11 +78,11 @@ const App = () => {
     }, 
     {
       path: '/to-me',
-      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />,
+      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} />,
     },
     {
       path: '/to-ta',
-      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />,
+      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} />,
     },
 
     // redirect to home page if not logged in

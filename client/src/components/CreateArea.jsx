@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import AddIcon from '@mui/icons-material/Add';
+import SendIcon from '@mui/icons-material/Send';
 import { Fab, Zoom } from "@mui/material";
 import "../styles/CreateArea.scss";
 
@@ -78,7 +78,7 @@ const CreateArea = (props) => {
           )}
         <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={note.content} placeholder="Whisper your love..." rows={showInput ? 5 : 1} />
         <Zoom in={showInput ? true : false} ><Fab onClick={handleSubmission}>
-            <AddIcon />
+            <SendIcon />
           </Fab>
         </Zoom>
       </form>
