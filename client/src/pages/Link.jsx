@@ -16,6 +16,8 @@ const Link = (props) => {
   // manage form data state
   const [inviteeEmail, setinviteeEmail] = useState();
 
+  const [verifyCode, setVerifyCode] = useState();
+
   // handle input change
   const handleLinkFormChange = (e) => {
     setinviteeEmail(e.target.value);
@@ -40,14 +42,14 @@ const Link = (props) => {
 
   // handle code form change
   const handleCodeChange = (e) => {
-    setCode(e.target.value);
+    setVerifyCode(e.target.value);
   }
 
   // handle invitee code submit
   const handleCodeSubmit = (e) => {
     e.preventDefault();
     console.log("Target", e.target);
-    axios.post('/invitations/verify', {code: code})
+    axios.post('/invitations/verify', {verifyCode: verifyCode})
       .then(() => {
         handleLinked();
       })

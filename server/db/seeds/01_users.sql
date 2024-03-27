@@ -1,3 +1,5 @@
+-- DO NOT USE
+
 -- seeds/01_users.sql
 -- users seeds
 INSERT INTO users (id, username, email, password) VALUES (1, 'A', 'rick.sandchez@gmail.com', 'picklerick');

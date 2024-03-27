@@ -17,18 +17,26 @@ const CreateArea = (props) => {
   // input display state handler
   const handleInputDisplay = function () {
     setShowInput(true);
+
+    //set start date if it hasn't set before
+    // placeholder for using state date value in future
+    if (!note.start_date) {
+      setNote(prev => ({
+        ...prev,
+        start_date: currentDate()
+      }))
+    }
   }
 
   const handleChange = function (e) {
     const {name, value} = e.target;
 
-    setNote(prev => {
-      return {
+    setNote(prev => ({
         ...prev,
         user_id: props.user['id'],
         [name]: value
-      }
-    })
+      })
+    )
   }
 
   // prevent submission button refresh default

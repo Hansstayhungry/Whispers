@@ -11,23 +11,29 @@
   p {
     font-size: 2rem;
   }
+
+  input {
+    font-size: 2rem;
+    margin: 2rem;
+  }
+
+  button {
+    font-size: 2rem;
+    background-color: #f5f5f5;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: auto;
+    margin-bottom: 4rem;
+  }
+
   .link-form {
     display: flex;
     flex-direction: column;
+  }
 
-    input {
-      font-size: 2rem;
-      margin: 1rem;
-    }
-
-    button {
-      font-size: 2rem;
-      background-color: #f5f5f5;
-      border: 1px solid black;
-      border-radius: 1rem;
-      padding: 1rem;
-      margin: 2rem auto;
-      width: 10rem;
-    }
+  .link-verification-form {
+    display: flex;
+    flex-direction: column;
   }
 }

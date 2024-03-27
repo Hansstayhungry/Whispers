@@ -1,3 +1,5 @@
+-- DO NOT USE
+
 -- seeds/02_urls.sql
 -- Seed Rick
 INSERT INTO urls (id, user_id, long_url, short_url, favorite) VALUES (1, 1, 'www.google.ca', 'XcD3d', false);
