@@ -104,16 +104,18 @@ const Link = (props) => {
               <p>Here is the code. Please share it with your partner.</p>
               <h2>{code}</h2>
               <h2>The code will expire in {countdown} seconds</h2>
-              <p>Time is up? Need to re-generate a new code?</p>
+              <p>Re-generate a new code</p>
               <button type="submit" disabled={disabled}>RE-GENERATE</button>
             </div>
           )}
         </form>
-        <p>Have an invitation code? Enter it below now.</p>
+        {!code ? (<div>
+          <p>Have an invitation code? Enter it below now.</p>
         <form onSubmit={handleCodeSubmit} className="link-verification-form">
           <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
           <button type="submit">Link</button>
         </form>
+        </div>) : null}
       </div>
     </div>
   );

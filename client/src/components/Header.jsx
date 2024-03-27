@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import logo from "../assets/images/logo.png"
 
 const Header = (props) => {
 
@@ -11,6 +12,7 @@ const Header = (props) => {
 
   return (<header className="header-container">
     <Link to="/" className="main-page-link" style={{ textDecoration: 'none' }}>
+      <img src={logo} alt="logo" className="logo"/>
       <h1>Whispers</h1>
     </Link>
     {/* use Link - react router instead of a href to avoid full page reload */}

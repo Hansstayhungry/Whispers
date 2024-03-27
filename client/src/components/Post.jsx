@@ -1,30 +1,32 @@
-import React from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import "../styles/Note.scss";
+// pending to delete
 
-const Post = (props) => {
+// import React from "react";
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import EditIcon from '@mui/icons-material/Edit';
+// import "../styles/Note.scss";
 
-  const {id, title, content} = props;
+// const Post = (props) => {
 
-  const handleDelete = function() {
-    props.onDelete(id)
-  }
+//   const {id, title, content} = props;
 
-  return (
-    <div className="note-container">
-      <h2>{title}</h2>
-      <p>{content}</p>
-      <span className="button-container">
-        <button onClick={handleDelete}>
-          <EditIcon className="edit-icon"/>
-        </button>
-        <button onClick={handleDelete}>
-        <DeleteIcon className="delete-icon"/>
-        </button>
-      </span>
-    </div>
-  )
-}
+//   const handleDelete = function() {
+//     props.onDelete(id)
+//   }
 
-export default Post;
+//   return (
+//     <div className="note-container">
+//       <h2>{title}</h2>
+//       <p>{content}</p>
+//       <span className="button-container">
+//         <button onClick={handleDelete}>
+//           <EditIcon className="edit-icon"/>
+//         </button>
+//         <button onClick={handleDelete}>
+//         <DeleteIcon className="delete-icon"/>
+//         </button>
+//       </span>
+//     </div>
+//   )
+// }
+
+// export default Post;

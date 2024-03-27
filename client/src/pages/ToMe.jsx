@@ -9,7 +9,7 @@ const ToMe = (props) => {
   console.log("user", user);
 
   // track every single posts state
-  const [posts, setPosts] = useState([{content: "No post yet!"}]);
+  const [posts, setPosts] = useState([{error: "No post yet! Go ahead and create your first whisper to your love!"}]);
 
   // track loading state
   const [isloadingStatus, setIsloadingStatus] = useState(false);
@@ -43,6 +43,16 @@ const ToMe = (props) => {
     return date.toLocaleString();
   }
 
+  // handle delete post by post id
+  const handleDelete = async (postId) => {
+    try {
+      await axios.delete(`/posts/delete/${postId}`);
+      allPostsByUserId();
+    } catch (error) {
+      console.error('Error when deleting post:', error);
+    }
+  }
+
   return (
     <div>
       <Header user={user} handleLogout={handleLogout} loading={loading}/>
@@ -52,18 +62,23 @@ const ToMe = (props) => {
           {isloadingStatus ? (
             <h2>Loading...</h2>
           ) : (
-            posts.map((post, index) => (
-              <div className="post" key={index}>
-                <h3>{post.title}</h3>
-                <p className="content">{post.content}</p>
-                <p className="date">Posted at {localTime(post.created_at)}</p>
-              </div>
-            ))
+            posts[0].error ? (
+              <h2>{posts[0].error}</h2>
+            ) : (
+              posts.map((post, index) => (
+                <div key={index} className="post">
+                  <h3>{post.title}</h3>
+                  <p className="content">{post.content}</p>
+                  <p className="date">Posted at {localTime(post.created_at)}</p>
+                  <button className="delete-button" onClick={() => handleDelete(post.id)}>Delete</button>
+                </div>
+              ))
+            )
           )}
         </div>
       </div>
     </div>
-  )
+  );  
 }
 
 export default ToMe;

@@ -8,7 +8,7 @@ const ToTa = (props) => {
   const {user, link, handleLogout, loading} = props;
 
   // track every single posts state
-  const [posts, setPosts] = useState([{content: "No post yet!"}]);
+  const [posts, setPosts] = useState([{error: "No post yet! Go ahead and create your first whisper to your love!"}]);
 
 
   // track loading state
@@ -42,6 +42,16 @@ const ToTa = (props) => {
     return date.toLocaleString();
   }
 
+  // handle delete post by post id
+  const handleDelete = async (postId) => {
+    try {
+      await axios.delete(`/posts/delete/${postId}`);
+      allPostsByUserId();
+    } catch (error) {
+      console.error('Error when deleting post:', error);
+    }
+  }
+
   return (
     <div>
       <Header user={user} handleLogout={handleLogout} loading={loading}/>
@@ -49,20 +59,25 @@ const ToTa = (props) => {
         <h2>ToTa</h2>
         <div className="posts-container">
           {isloadingStatus ? (
-              <h2>Loading...</h2>
+            <h2>Loading...</h2>
           ) : (
-            posts.map((post, index) => (
-              <div key={index} className="post">
-                <h3>{post.title}</h3>
-                <p className="content">{post.content}</p>
-                <p className="date">Posted at {localTime(post.created_at)}</p>
-              </div>
-            ))
+            posts[0].error ? (
+              <h2>{posts[0].error}</h2>
+            ) : (
+              posts.map((post, index) => (
+                <div key={index} className="post">
+                  <h3>{post.title}</h3>
+                  <p className="content">{post.content}</p>
+                  <p className="date">Posted at {localTime(post.created_at)}</p>
+                  <button className="delete-button" onClick={() => handleDelete(post.id)}>Delete</button>
+                </div>
+              ))
+            )
           )}
-          </div>
+        </div>
       </div>
     </div>
-  )
+  );  
 }
 
 export default ToTa;
