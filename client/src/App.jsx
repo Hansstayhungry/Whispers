@@ -19,7 +19,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   // state to manage if user is linked with another user
-  const [link, setLink] = useState(false);
+  const [linked, setLink] = useState(false);
 
   // Function to handle login
   const handleLogin = (userData) => {
@@ -39,10 +39,10 @@ const App = () => {
   };
 
   // handle link
-  const handleLink = (e) => {
+  const handleLinked = (e) => {
     e.preventDefault();
     console.log("setLink triggered")
-    //setLink(true);
+    //setLinked(true);
   }
 
   // Effect to check for logged-in user on initial load
@@ -59,19 +59,10 @@ const App = () => {
       });
   }, []);
 
-  // // if not logged in, redirect to home page
-  // const PrivateRoute = ({ element, path }) => {
-  //   return user ? (
-  //     element
-  //   ) : (
-  //     <Navigate to="/login" replace state={{ from: path }} />
-  //   );
-  // };
-
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLink={handleLink} link={link} />,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLinked={handleLinked} linked={linked} />,
     },
     {
       path: '/login',
@@ -98,7 +89,7 @@ const App = () => {
     {
       path: '/link',
       element: user ? (
-        <Link handleLink={handleLink} link={link} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+        <Link handleLinked={handleLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
       ) : (
         <Navigate to='/' />
       ),

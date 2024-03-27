@@ -21,6 +21,8 @@ router.post("/create", async(req, res) => {
     const invitee = await users.getUserByEmail(inviteeEmail);
     console.log("invitee", invitee);
     const inviteeId = invitee[0].id;
+    console.log("inviteeId", inviteeId);
+    console.log("code", code);
 
     if (!invitee || invitee.length === 0) {
       return res.json({ error: 'Your partner has not registgered yet, please inform ta to register first' });
@@ -35,7 +37,7 @@ router.post("/create", async(req, res) => {
 });
 
 // to manage code verification by comparing if code received and email match in invite form
-router.post("/verification", async(req, res) => {
+router.post("/verify", async(req, res) => {
 
   // get received code from client side
   const { receivedCode } = req.body

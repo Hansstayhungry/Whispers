@@ -5,36 +5,25 @@ import axios from "axios";
 
 const Link = (props) => {
   
-  const {handleLink, link, user, handleLogout} = props;
+  const {handleLinked, linked, user, handleLogout, loading} = props;
 
+  // manage code state when invitee input the code they received
   const [code, setCode] = useState("");
 
   // manage disable state for re-generate code button
   const [disabled, setDisabled] = useState(true);
 
   // manage form data state
-  const [formData, setFormData] = useState({
-    inviteeEmail: ''
-  });
+  const [inviteeEmail, setinviteeEmail] = useState();
 
   // handle input change
-  const handleChange = (e) => {
-    e.preventDefault();
-    const {name, value} = e.target;
-    setFormData( prev => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
+  const handleLinkFormChange = (e) => {
+    setinviteeEmail(e.target.value);
   }
 
   // handle link process
-  const handleSubmit = (e) => {
+  const handleLinkFormSubmit = (e) => {
     e.preventDefault();
-
-    //get invitee email input:
-    const inviteeEmail = e.target.inviteeEmail.value;
 
     const code = generateCode();
     axios.post('/invitations/create', {inviteeEmail: inviteeEmail, code: code})
@@ -45,6 +34,25 @@ const Link = (props) => {
       })
       .catch(error => {
         console.error('Error when creating invitation:', error);
+      });
+  }
+
+
+  // handle code form change
+  const handleCodeChange = (e) => {
+    setCode(e.target.value);
+  }
+
+  // handle invitee code submit
+  const handleCodeSubmit = (e) => {
+    e.preventDefault();
+    console.log("Target", e.target);
+    axios.post('/invitations/verify', {code: code})
+      .then(() => {
+        handleLinked();
+      })
+      .catch(error => {
+        console.error('Error when verifying invitation:', error);
       });
   }
 
@@ -81,12 +89,12 @@ const Link = (props) => {
   
   return (
     <div>
-      <Header user={user} handleLogout={handleLogout}/>
+      <Header user={user} handleLogout={handleLogout} loading={loading}/>
       <div className="link-container">
         <h1>Manage Link</h1>
         <p>Link with your partner by generating a unique invitation code to start writing posts</p>
-        <form onSubmit={handleSubmit} className="link-form">
-          <input type="email" name="inviteeEmail" value={formData.inviteeEmail} onChange={handleChange} placeholder="Enter your partner's email"></input>
+        <form onSubmit={handleLinkFormSubmit} className="link-form">
+          <input type="email" name="inviteeEmail" value={inviteeEmail} onChange={handleLinkFormChange} placeholder="Enter your partner's email"></input>
           {!code ? (
             <button type="submit">GENERATE</button>
           ) : (
@@ -100,9 +108,9 @@ const Link = (props) => {
           )}
         </form>
         <p>Have an invitation code? Enter it below now.</p>
-        <form className="link-verification-form">
-          <input type="text" placeholder="Enter your invitation code"></input>
-          <button onClick={handleLink}>Link</button>
+        <form onSubmit={handleCodeSubmit} className="link-verification-form">
+          <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
+          <button type="submit">Link</button>
         </form>
       </div>
     </div>

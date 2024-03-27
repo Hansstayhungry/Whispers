@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../components/Header"
-import "../styles/Status.scss";
+import "../styles/ToTa.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 const ToTa = (props) => {
-  const {user, link, handleLogout} = props;
+  const {user, link, handleLogout, loading} = props;
 
   // track every single posts state
   const [posts, setPosts] = useState([{content: "No post yet!"}]);
@@ -29,9 +29,15 @@ const ToTa = (props) => {
   }
   ,[]);
 
+  // convert time to system local time
+  const localTime = (time) => {
+    const date = new Date(time);
+    return date.toLocaleString();
+  }
+
   return (
     <div>
-      <Header user={user} handleLogout={handleLogout}/>
+      <Header user={user} handleLogout={handleLogout} loading={loading}/>
       <div className="ToTa-container">
         <h2>ToTa</h2>
         <div className="posts-container">
@@ -40,7 +46,8 @@ const ToTa = (props) => {
             return (
               <div key={index} className="post">
                 <h3>{post.title}</h3>
-                <p>{post.content}</p>
+                <p className="content">{post.content}</p>
+                <p className="date">Posted at {localTime(post.created_at)}</p>
               </div>
             )
           })}

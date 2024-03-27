@@ -8,8 +8,8 @@ const Navbar = (props) => {
   return (
     <nav className="navbar-container">
       <div className="nav-links">
-        <Link to="/to-me">{user.username}'s Inbox</Link>
-        <Link to="/to-ta">To ta's inbox</Link>
+        <Link to="/to-me">{user.username}'s Inbox/ RECEIVED</Link>
+        <Link to="/to-ta">To ta's inbox / SENT</Link>
       </div>
     </nav>
   )

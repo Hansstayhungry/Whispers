@@ -30,7 +30,7 @@ async function deletePost(id) {
 }
 
 async function getPostsByUserId(user_id) {
-  const userPosts = await db.query('SELECT * FROM posts WHERE user_id = $1', [user_id]);
+  const userPosts = await db.query('SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC', [user_id]);
   return userPosts.rows;
 }
 

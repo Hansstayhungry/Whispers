@@ -23,7 +23,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expires: 60 * 60 * 24}
+    expires: 60 * 60 * 24 * 1000}
 }));
 
 app.use(express.json());

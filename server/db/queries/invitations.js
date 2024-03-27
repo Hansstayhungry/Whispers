@@ -1,5 +1,3 @@
-// db/queries/users.js
-
 import db from '../../configs/db.config.js';
 
 async function getAllUsers() {
@@ -31,7 +29,7 @@ async function getUserByEmail(email) {
 
 async function createLink(inviterId, inviteeId, code) {
   try {
-    await db.query('INSERT INTO invitations (inviter, invitee, code) VALUES ($1, $2, $3)',
+    await db.query('INSERT INTO invitations (inviterid, inviteeid, code) VALUES ($1, $2, $3)',
     [inviterId, inviteeId, code]);
 
     const newLink = await db.query('SELECT * FROM invitations WHERE code = $1', [code]);
