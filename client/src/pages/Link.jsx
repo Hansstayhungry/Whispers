@@ -18,6 +18,9 @@ const Link = (props) => {
 
   const [verifyCode, setVerifyCode] = useState();
 
+  // get warning message from server if invitee email is not registered
+  const [warning, setWarning] = useState();
+
   // handle input change
   const handleLinkFormChange = (e) => {
     setinviteeEmail(e.target.value);
@@ -29,10 +32,14 @@ const Link = (props) => {
 
     const code = generateCode();
     axios.post('/invitations/create', {inviteeEmail: inviteeEmail, code: code})
-      .then(() => {
-        setCode(code);
-        setDisabled(true);
-        setCountdown(60);
+      .then((response) => {
+        if (response.data.warning) {
+          setWarning(response.data.warning);
+        } else {
+          setCode(code);
+          setDisabled(true);
+          setCountdown(60);          
+        }
       })
       .catch(error => {
         console.error('Error when creating invitation:', error);
@@ -97,6 +104,7 @@ const Link = (props) => {
         <p>Link with your partner by generating a unique invitation code to start writing posts</p>
         <form onSubmit={handleLinkFormSubmit} className="link-form">
           <input type="email" name="inviteeEmail" value={inviteeEmail} onChange={handleLinkFormChange} placeholder="Enter your partner's email"></input>
+          <p>{warning}</p>
           {!code ? (
             <button type="submit">GENERATE</button>
           ) : (
@@ -109,13 +117,13 @@ const Link = (props) => {
             </div>
           )}
         </form>
-        {!code ? (<div>
+        {!code && (<div>
           <p>Have an invitation code? Enter it below now.</p>
         <form onSubmit={handleCodeSubmit} className="link-verification-form">
           <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
           <button type="submit">Link</button>
         </form>
-        </div>) : null}
+        </div>)}
       </div>
     </div>
   );

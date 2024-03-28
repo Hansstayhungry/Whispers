@@ -20,15 +20,18 @@ router.post("/create", async(req, res) => {
     // feed info to createLink function
     const invitee = await users.getUserByEmail(inviteeEmail);
     console.log("invitee", invitee);
-    const inviteeId = invitee[0].id;
-    console.log("inviteeId", inviteeId);
-    console.log("code", code);
-
     if (!invitee || invitee.length === 0) {
-      return res.json({ error: 'Your partner has not registgered yet, please inform ta to register first' });
+      return res.json({ warning: 'Your partner has not registgered yet, please inform ta to register first' });
+    } else if (invitee[0].id === inviterId) {
+      return res.json({ warning: 'You cannot invite yourself.' });
+    } else {
+      const inviteeId = invitee[0].id;
+      console.log("inviteeId", inviteeId);
+      console.log("code", code);
+      
+      const newLink = await invitations.createLink(inviterId, inviteeId, code);
+      res.json({ linkIsSent: true, message: 'invitation sent successfully' });
     }
-    const newLink = await invitations.createLink(inviterId, inviteeId, code);
-    res.json({ linkIsSent: true, message: 'invitation sent successfully' });
 
   } catch (error) {
     console.log(error);
