@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../components/Header"
 import "../styles/ToTa.scss";
 import axios from "axios";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
 
 const ToTa = (props) => {
@@ -73,7 +75,10 @@ const ToTa = (props) => {
                   <h3>{post.title}</h3>
                   <p className="content">{post.content}</p>
                   <p className="date">Posted at {localTime(post.created_at)}</p>
-                  <button className="delete-button" onClick={() => handleDelete(post.id)}>Delete</button>
+                  <IconButton aria-label="delete">
+                    <DeleteIcon className="delete-button"
+                    onClick={() => handleDelete(post.id)}/>
+                  </IconButton>
                 </div>
               ))
             )
