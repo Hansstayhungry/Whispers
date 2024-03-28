@@ -8,7 +8,7 @@ const ToTa = (props) => {
   const {user, link, handleLogout, loading} = props;
 
   // track every single posts state
-  const [posts, setPosts] = useState([{error: "No post yet! Go ahead and create your first whisper to your love!"}]);
+  const [posts, setPosts] = useState([]);
 
 
   // track loading state
@@ -19,10 +19,13 @@ const ToTa = (props) => {
   const allPostsByUserId = async () => {
     try {
       setIsloadingStatus(true);
-      const response = await axios.get(`/posts/user/${user['id']}`);
+      const response = await axios.get(`/posts/user/${user.id}`);
       console.log("response", response);
-      if (response.data.length !== 0) {
+      if (response.data.length === 0) {
+        setPosts([]);
+      } else {
         setPosts(response.data);
+        console.log("posts[0", posts[0]);
       }
     } catch (error) {
       console.error('Error getting all posts by user id:', error);
@@ -46,7 +49,8 @@ const ToTa = (props) => {
   const handleDelete = async (postId) => {
     try {
       await axios.delete(`/posts/delete/${postId}`);
-      allPostsByUserId();
+      const updatedPosts = posts.filter(post => post.id !== postId);
+      setPosts(updatedPosts);        
     } catch (error) {
       console.error('Error when deleting post:', error);
     }
@@ -61,8 +65,8 @@ const ToTa = (props) => {
           {isloadingStatus ? (
             <h2>Loading...</h2>
           ) : (
-            posts[0].error ? (
-              <h2>{posts[0].error}</h2>
+            posts.length === 0 ? (
+              <h2>No post yet! Go ahead and create your first whisper to your love!</h2>
             ) : (
               posts.map((post, index) => (
                 <div key={index} className="post">

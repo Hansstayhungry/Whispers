@@ -11,6 +11,7 @@ import catsRoutes from './routes/catsRoutes.js';
 import users from './routes/users.js';
 import posts from './routes/posts.js';
 import invitations from './routes/invitations.js';
+import links from './routes/links.js';
 
 const app = express();
 
@@ -39,5 +40,8 @@ app.use('/posts', posts);
 
 //handle two user links
 app.use('/invitations', invitations);
+
+//handle link relations route
+app.use('/links', links);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

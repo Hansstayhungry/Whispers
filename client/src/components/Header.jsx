@@ -21,7 +21,9 @@ const Header = (props) => {
     {!loading && (<div className="sign-container">
       <span className="buttonGroup">
         {user ? (
-          <div><Button component={Link} to="/link" className="MuiLink-button">
+          <div>
+          <h2>{user.email}</h2>
+          <Button component={Link} to="/link" className="MuiLink-button">
           Link
           </Button>
 

@@ -8,3 +8,5 @@ async function getUserById(id) {
     console.log(err);
   }         
 }
+
+export default { getUserById };
