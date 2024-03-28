@@ -2,7 +2,7 @@
 
 CREATE TABLE links (
   id SERIAL PRIMARY KEY,
-  inviterId INTEGER REFERENCES users(id),
-  inviteeId INTEGER NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  partner_id INTEGER REFERENCES users(id),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

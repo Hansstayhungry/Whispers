@@ -53,8 +53,8 @@ router.post("/verify", async(req, res) => {
     const data = await invitations.getMatchByCode(receivedCode);
     if (!data || data.length === 0) {
       return res.json({ error: 'Invalid code' });
-    } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
-      return res.json({ error: 'Invalid code' });
+    // } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
+    //   return res.json({ error: 'Invalid code' });
     } else {
       res.json({ codeIsMatched: true, message: 'Parnter linked successfully' });
     }

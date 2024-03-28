@@ -56,6 +56,9 @@ const Link = (props) => {
   const handleCodeSubmit = (e) => {
     e.preventDefault();
     console.log("Target", e.target);
+    // get invitee user id by email
+
+
     axios.post('/invitations/verify', {verifyCode: verifyCode})
       .then(() => {
         handleLinked();

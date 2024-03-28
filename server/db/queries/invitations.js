@@ -49,4 +49,22 @@ async function getMatchByCode(email) {
   }
 }
 
-export default { getAllUsers, getUserById, getUserByEmail, createLink, getMatchByCode };
+// to validate the invitation code
+async function getRelations(id) {
+  try {
+    const data = await db.query(
+      `SELECT * 
+      FROM your_table_name 
+      WHERE code = $1 
+      AND inviterid = $2 
+      AND inviteeid = $3 
+      AND expired_at > NOW()`,
+      [code, inviterId, inviteeId])
+
+    return data.rows;
+  } catch (err) {
+    console.log(err);
+  }         
+}
+
+export default { getAllUsers, getUserById, getUserByEmail, createLink, getMatchByCode, getRelations };
