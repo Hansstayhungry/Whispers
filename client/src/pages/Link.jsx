@@ -92,6 +92,17 @@ const Link = (props) => {
   // set countown
   const [countdown, setCountdown] = useState();
 
+  // handle Unlink between users
+  const handleUnlink = () => {
+    axios.delete(`/links/unlink/${user.id}`)
+      .then(() => {
+        setLinked(false);
+      })
+      .catch(error => {
+        console.error('Error when unlinking:', error);
+      });
+  }
+
   // useEffect to manage countdown
   useEffect(() => {
     if (countdown === 0) {
@@ -108,7 +119,6 @@ const Link = (props) => {
       return () => clearInterval(interval);
     }
   }, [countdown]);
-
   
   return (
     <div>
@@ -145,7 +155,8 @@ const Link = (props) => {
         <div className="link-container">
           <h1>Manage Link</h1>
           <p>You have successfully linked with your partner</p>
-          <p>Want to disconnect? click un-linked below</p>
+          <p>Want to disconnect? click un-link below</p>
+          <button onClick={handleUnlink}>UN-LINK</button>
         </div>
       )}
     </div>  

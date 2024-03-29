@@ -6,7 +6,7 @@ import "../styles/CreateArea.scss";
 
 const CreateArea = (props) => {
 
-  const [note, setNote] = useState({
+  const [post, setPost] = useState({
     title: "",
     content: ""
   })
@@ -20,8 +20,8 @@ const CreateArea = (props) => {
 
     //set start date if it hasn't set before
     // placeholder for using state date value in future
-    if (!note.start_date) {
-      setNote(prev => ({
+    if (!post.start_date) {
+      setPost(prev => ({
         ...prev,
         start_date: currentDate()
       }))
@@ -31,7 +31,7 @@ const CreateArea = (props) => {
   const handleChange = function (e) {
     const {name, value} = e.target;
 
-    setNote(prev => ({
+    setPost(prev => ({
         ...prev,
         user_id: props.user['id'],
         [name]: value
@@ -40,18 +40,18 @@ const CreateArea = (props) => {
   }
 
   // prevent submission button refresh default
-  // add note to app page
+  // add post to post page
   const handleSubmission = function (e) {
     // props.onAdd(note);
     e.preventDefault();
-    axios.post('/posts/create', note)
+    axios.post('/posts/create', post)
 
     clearInput()
   }
 
   //clear input area after submitted
   const clearInput = function() {
-    setNote({
+    setPost({
       title: "",
       content: ""
     })
@@ -71,12 +71,12 @@ const CreateArea = (props) => {
 
   return (
     <div>
-      <form className="create-note">
+      <form className="create-post">
         <h2>{showInput ? currentDate() : ""}</h2>
         {showInput && (
-          <input name="title" onChange={handleChange} value={note.title} placeholder="Title" autoFocus/>
+          <input name="title" onChange={handleChange} value={post.title} placeholder="Title" autoFocus/>
           )}
-        <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={note.content} placeholder="Whisper your love..." rows={showInput ? 5 : 1} />
+        <textarea name="content" onClick={handleInputDisplay} onChange={handleChange} value={post.content} placeholder="Whisper your love..." rows={showInput ? 5 : 1} />
         <Zoom in={showInput ? true : false} ><Fab onClick={handleSubmission}>
             <SendIcon />
           </Fab>

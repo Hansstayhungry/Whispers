@@ -76,9 +76,27 @@ router.post("/verify", async(req, res) => {
   }
 });
 
+// manage to unlink users
+router.delete("/unlink/:id", async(req, res) => {
+  const { id } = req.params;
+  try {
+    await links.deleteRelations(id);
+    res.json({ message: 'Unlinked successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error'});
+  }
+});
+
 router.get("/checkLinked", async(req, res) => {
-  const { id: user_id } = req.session.user;
-  try  {
+  try {
+    let user_id;
+    if (req.session.user) {
+      user_id = req.session.user.id;
+    } else {
+      // Handle the case when req.session.user doesn't exist
+      return res.status(401).json({ error: 'User session not found' });
+    }
+
     const data = await links.getRelations(user_id);
     if ( data.length !== 0) {
       const partner = await users.getUserById(data[0].partner_id);

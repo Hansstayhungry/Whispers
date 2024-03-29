@@ -42,4 +42,16 @@ async function getRelations(id) {
   }
 }
 
-export default { getRelations, createRelations };
+// delete relations
+async function deleteRelations(id) {
+  try {
+    const deletedLink = await db.query(
+      `DELETE FROM links 
+      WHERE user_id = $1 OR partner_id = $1`,
+      [id]);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export default { getRelations, createRelations, deleteRelations };

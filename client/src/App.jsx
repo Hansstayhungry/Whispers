@@ -58,7 +58,6 @@ const App = () => {
   // Check if user is linked with another user
   useEffect(() => {
     // ensure checkedLoggedInUser is completed before checking linked relation"
-    if (!loading) {
       axios.get('links/checkLinked')
         .then(response => {
           setLinked(response.data.linked);
@@ -68,7 +67,6 @@ const App = () => {
         .catch(error => {
           console.error('Error checking linked user:', error);
         });      
-    }
   }, []);
 
   const router = createBrowserRouter([

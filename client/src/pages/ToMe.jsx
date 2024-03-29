@@ -5,7 +5,7 @@ import axios from "axios";
 import "../styles/ToMe.scss";
 
 const ToMe = (props) => {
-  const {user, link, handleLogout, loading, setUser} = props;
+  const {user, link, handleLogout, loading, setUser, partner} = props;
   console.log("user", user);
 
   // track every single posts state
@@ -19,7 +19,7 @@ const ToMe = (props) => {
   const allPostsByUserId = async () => {
     try {
       setIsloadingStatus(true);
-      const response = await axios.get(`/posts/user/${user['id']}`);
+      const response = await axios.get(`/posts/user/${partner['id']}`);
       console.log("response", response);
       if (response.data.length !== 0) {
         setPosts(response.data);
@@ -34,7 +34,7 @@ const ToMe = (props) => {
   useEffect(() => {
     allPostsByUserId();
   }
-  ,[user]);
+  ,[partner]);
 
 
   // convert time to system local time
@@ -70,7 +70,6 @@ const ToMe = (props) => {
                   <h3>{post.title}</h3>
                   <p className="content">{post.content}</p>
                   <p className="date">Posted at {localTime(post.created_at)}</p>
-                  <button className="delete-button" onClick={() => handleDelete(post.id)}>Delete</button>
                 </div>
               ))
             )

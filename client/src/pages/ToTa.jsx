@@ -19,20 +19,22 @@ const ToTa = (props) => {
   // get all posts by user id
 
   const allPostsByUserId = async () => {
-    try {
-      setIsloadingStatus(true);
-      const response = await axios.get(`/posts/user/${user.id}`);
-      console.log("response", response);
-      if (response.data.length === 0) {
-        setPosts([]);
-      } else {
-        setPosts(response.data);
-        console.log("posts[0", posts[0]);
-      }
-    } catch (error) {
-      console.error('Error getting all posts by user id:', error);
-    } finally {
-      setIsloadingStatus(false);
+    if (user) {
+      try {
+        setIsloadingStatus(true);
+        const response = await axios.get(`/posts/user/${user.id}`);
+        console.log("response", response);
+        if (response.data.length === 0) {
+          setPosts([]);
+        } else {
+          setPosts(response.data);
+          console.log("posts[0", posts[0]);
+        }
+      } catch (error) {
+        console.error('Error getting all posts by user id:', error);
+      } finally {
+        setIsloadingStatus(false);
+      }      
     }
   }
   // useEffect to get all posts by user id
