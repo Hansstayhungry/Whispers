@@ -1,6 +1,5 @@
 import express from 'express';
 import invitations from '../db/queries/invitations.js';
-import bcrypt from 'bcrypt';
 import links from '../db/queries/links.js';
 import users from '../db/queries/users.js';
 

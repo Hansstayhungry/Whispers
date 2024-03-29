@@ -40,13 +40,12 @@ const Link = (props) => {
   const handleLinkFormSubmit = (e) => {
     e.preventDefault();
 
-    const code = generateCode();
-    axios.post('/invitations/create', {inviteeEmail: inviteeEmail, code: code})
+    axios.post('/invitations/create', {inviteeEmail: inviteeEmail})
       .then((response) => {
         if (response.data.warning) {
           setWarning(response.data.warning);
         } else {
-          setCode(code);
+          setCode(response.data.code);
           setDisabled(true);
           setCountdown(60);          
         }
@@ -86,16 +85,6 @@ const Link = (props) => {
       .catch(error => {
         console.error('Error when verifying invitation:', error);
       });
-  }
-
-  //gernerate a code for linking
-  const generateCode = () => {
-    let code = "";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < 8; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return code;
   }
 
   // set countown

@@ -7,10 +7,21 @@ const router = express.Router();
 
 // to manage code creation by getting inviter and invitee id
 router.post("/create", async(req, res) => {
+  //gernerate a code for linking
+  const generateCode = () => {
+    let code = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < 8; i++) {
+      code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+  }
+
+  const code = generateCode();
 
   // getting invitee email from cleint side form
-  const { inviteeEmail, code } = req.body;
-  console.log("inviteeEmail", inviteeEmail, "code", code);
+  const { inviteeEmail } = req.body;
+  console.log("inviteeEmail", inviteeEmail);
 
   // getting inviter info from session, and deconstrcut
   const { id: inviterId, username: inviterUsername, email: inviterEmail } = req.session.user;
@@ -30,7 +41,7 @@ router.post("/create", async(req, res) => {
       console.log("code", code);
       
       const newLink = await invitations.createLink(inviterId, inviteeId, code);
-      res.json({ linkIsSent: true, message: 'invitation sent successfully' });
+      res.json({ linkIsSent: true, message: 'invitation sent successfully', code: code});
     }
 
   } catch (error) {
