@@ -68,10 +68,11 @@ const Link = (props) => {
     // get invitee user id by email
 
 
-    axios.post('/invitations/verify', {verifyCode: verifyCode})
+    axios.post('/links/verify', {verifyCode: verifyCode})
       .then((data) => {
         if (data.error) {
           setWarningLink(data.error);
+          return;
         } else {
           setWarningLink();
           setLinked(data.codeIsMatched);

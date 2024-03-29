@@ -50,36 +50,4 @@ router.post("/create", async(req, res) => {
   }
 });
 
-// to manage code verification by comparing if code received and email match in invite form
-router.post("/verify", async(req, res) => {
-
-  // get received code from client side
-  const { verifyCode: receivedCode } = req.body
-  console.log("receivedCode", receivedCode);
-
-  // now get invitee info from session
-  const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
-
-  try {
-
-    // get inviterId by validation code
-    const inviter = await invitations.getInviterIdByCode(receivedCode);
-    const inviterId = inviter['inviterid'];
-    console.log("inviterId", inviterId);
-
-    // now we have all data needed to feed to getRelations function
-    const data = await invitations.getRelations(receivedCode, inviterId, inviteeId);
-    if (!data || data.length === 0) {
-      return res.json({ error: 'Invalid code' });
-    } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
-      return res.json({ error: 'Invalid code' });
-    } else {
-      res.json({ codeIsMatched: true, message: 'Parnter linked successfully' });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error'});
-  }
-});
-
 export default router;

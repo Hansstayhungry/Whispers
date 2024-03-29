@@ -58,9 +58,8 @@ async function getRelations(code, inviterId, inviteeId) {
       FROM invitations 
       WHERE code = $1 
       AND inviterid = $2 
-      AND inviteeid = $3 
-      AND expired_at > NOW()`,
-      [code, inviterId, inviteeId])
+      AND inviteeid = $3`,
+      [code, inviterId, inviteeId]);
 
     return data.rows;
   } catch (err) {

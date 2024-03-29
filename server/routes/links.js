@@ -40,29 +40,41 @@ router.post("/create", async(req, res) => {
 });
 
 // to manage code verification by comparing if code received and email match in invite form
-// router.post("/verify", async(req, res) => {
+router.post("/verify", async(req, res) => {
 
-//   // get received code from client side
-//   const { receivedCode } = req.body
+  // get received code from client side
+  const { verifyCode: receivedCode } = req.body
+  console.log("receivedCode", receivedCode);
 
-//   // now get invitee info from session
-//   const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
+  // now get invitee info from session
+  const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
 
-//   try {
+  try {
 
-//     const data = await invitations.getMatchByCode(receivedCode);
-//     if (!data || data.length === 0) {
-//       return res.json({ error: 'Invalid code' });
-//     } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
-//       return res.json({ error: 'Invalid code' });
-//     } else {
-//       res.json({ codeIsMatched: true, message: 'Partner linked successfully' });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: 'Internal server error'});
-//   }
-// });
+    // get inviterId by validation code
+    const inviter = await invitations.getInviterIdByCode(receivedCode);
+    const inviterId = inviter['inviterid'];
+    console.log("inviterId", inviterId);
+
+    // now we have all data needed to feed to getRelations function
+    const data = await invitations.getRelations(receivedCode, inviterId, inviteeId);
+    if (!data || data.length === 0) {
+      console.log("stop at if");
+      return res.json({ error: 'Invalid code' });
+    } else if (data[0].inviteeid !== inviteeId || data[0].expired_at < new Date()) {
+      console.log("data[0].inviteeid", data[0].inviteeid, "inviteeId", inviteeId, "data[0].expired_at", data[0].expired_at, "new Date()", new Date());
+      console.log("stop at else if");
+      return res.json({ error: 'Invalid code' });
+    } else {
+      const newRelation = await links.createRelations(inviterId, inviteeId);
+      console.log("newRelation", newRelation)
+      res.json({ codeIsMatched: true, message: 'Code matched!' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error'});
+  }
+});
 
 router.get("/checkLinked", async(req, res) => {
   const { id: user_id } = req.session.user;
