@@ -14,12 +14,15 @@ import axios from 'axios';
 const App = () => {
   // State to manage the user's logged-in status
   const [user, setUser] = useState(null);
-  
+
+  // State to manage the partner's information
+  const [partner, setPartner] = useState(null);
+
   // State to manage loading status
   const [loading, setLoading] = useState(true);
 
   // state to manage if user is linked with another user
-  const [linked, setLink] = useState(false);
+  const [linked, setLinked] = useState(false);
 
   // Function to handle login
   const handleLogin = (userData) => {
@@ -59,10 +62,26 @@ const App = () => {
       });
   }, []);
 
+  // Check if user is linked with another user
+  useEffect(() => {
+    // ensure checkedLoggedInUser is completed before checking linked relation"
+    if (!loading) {
+      axios.get('links/checkLinked')
+        .then(response => {
+          setLinked(response.data.linked);
+          const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
+          setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
+        })
+        .catch(error => {
+          console.error('Error checking linked user:', error);
+        });      
+    }
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLinked={handleLinked} linked={linked} />,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLinked={handleLinked} linked={linked} partner={partner} />,
     },
     {
       path: '/login',
@@ -78,7 +97,7 @@ const App = () => {
     }, 
     {
       path: '/to-me',
-      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} />,
+      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} partner={partner} />,
     },
     {
       path: '/to-ta',
@@ -89,7 +108,7 @@ const App = () => {
     {
       path: '/link',
       element: user ? (
-        <Link handleLinked={handleLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+        <Link handleLinked={handleLinked} setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
       ) : (
         <Navigate to='/' />
       ),

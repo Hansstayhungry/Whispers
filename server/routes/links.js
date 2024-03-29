@@ -1,7 +1,8 @@
 import express from 'express';
-import users from '../db/queries/invitations.js';
+import invitations from '../db/queries/invitations.js';
 import bcrypt from 'bcrypt';
 import links from '../db/queries/links.js';
+import users from '../db/queries/users.js';
 
 const router = express.Router();
 
@@ -63,5 +64,19 @@ router.post("/verify", async(req, res) => {
     res.status(500).json({ error: 'Internal server error'});
   }
 });
+
+router.get("/checkLinked", async(req, res) => {
+  const { id: user_id } = req.session.user;
+  try  {
+    const data = await links.getRelations(user_id);
+    if ( data.length !== 0) {
+      const partner = await users.getUserById(data[0].partner_id);
+      res.json({ linked: true, partner: partner[0]});
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error'});
+  }
+})
 
 export default router;

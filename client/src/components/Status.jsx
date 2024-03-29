@@ -3,7 +3,7 @@ import "../styles/Status.scss";
 
 const Status = (props) => {
 
-  const {link, handleLink, user} = props;
+  const {link, handleLink, user, partner} = props;
 
   return (
     <div className="status-container">

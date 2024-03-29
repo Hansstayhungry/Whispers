@@ -1,11 +1,15 @@
 import React, { useState, useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import '../styles/Link.scss';
 import axios from "axios";
 
 const Link = (props) => {
+
+  // redirect to main page using react router dom
+  const navigate = useNavigate();
   
-  const {handleLinked, linked, user, handleLogout, loading} = props;
+  const {handleLinked, setLinked, linked, user, handleLogout, loading} = props;
 
   // manage code state when invitee input the code they received
   const [code, setCode] = useState("");
@@ -20,6 +24,12 @@ const Link = (props) => {
 
   // get warning message from server if invitee email is not registered
   const [warning, setWarning] = useState();
+
+  // set warning message to link form
+  const [warningLink, setWarningLink] = useState();
+
+  // set successful message when link is successful
+  const [linkSuccess, setLinkSuccess] = useState();
 
   // handle input change
   const handleLinkFormChange = (e) => {
@@ -60,8 +70,18 @@ const Link = (props) => {
 
 
     axios.post('/invitations/verify', {verifyCode: verifyCode})
-      .then(() => {
-        handleLinked();
+      .then((data) => {
+        if (data.error) {
+          setWarningLink(data.error);
+        } else {
+          setWarningLink();
+          setLinkSuccess(data.message);
+          setLinked(true);
+          handleLinked();
+
+          // redirect to home page after all process is done
+          navigate('/');
+        }
       })
       .catch(error => {
         console.error('Error when verifying invitation:', error);
@@ -102,33 +122,42 @@ const Link = (props) => {
   return (
     <div>
       <Header user={user} handleLogout={handleLogout} loading={loading}/>
-      <div className="link-container">
-        <h1>Manage Link</h1>
-        <p>Link with your partner by generating a unique invitation code to start writing posts</p>
-        <form onSubmit={handleLinkFormSubmit} className="link-form">
-          <input type="email" name="inviteeEmail" value={inviteeEmail} onChange={handleLinkFormChange} placeholder="Enter your partner's email"></input>
-          <p>{warning}</p>
-          {!code ? (
-            <button type="submit">GENERATE</button>
-          ) : (
-            <div>
-              <p>Here is the code. Please share it with your partner.</p>
-              <h2>{code}</h2>
-              <h2>The code will expire in {countdown} seconds</h2>
-              <p>Re-generate a new code</p>
-              <button type="submit" disabled={disabled}>RE-GENERATE</button>
-            </div>
-          )}
-        </form>
-        {!code && (<div>
-          <p>Have an invitation code? Enter it below now.</p>
-        <form onSubmit={handleCodeSubmit} className="link-verification-form">
-          <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
-          <button type="submit">Link</button>
-        </form>
-        </div>)}
-      </div>
-    </div>
+      {!linked ? (
+        <div className="link-container">
+          <h1>Manage Link</h1>
+          <p>Link with your partner by generating a unique invitation code to start writing posts</p>
+          <form onSubmit={handleLinkFormSubmit} className="link-form">
+            <input type="email" name="inviteeEmail" value={inviteeEmail} onChange={handleLinkFormChange} placeholder="Enter your partner's email"></input>
+            <p>{warning}</p>
+            {!code ? (
+              <button type="submit">GENERATE</button>
+            ) : (
+              <div>
+                <p>Here is the code. Please share it with your partner.</p>
+                <h2>{code}</h2>
+                <h2>The code will expire in {countdown} seconds</h2>
+                <p>Re-generate a new code</p>
+                <button type="submit" disabled={disabled}>RE-GENERATE</button>
+              </div>
+            )}
+          </form>
+          {!code && (<div>
+            <p>Have an invitation code? Enter it below now.</p>
+          <form onSubmit={handleCodeSubmit} className="link-verification-form">
+            <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
+            <p>{warningLink}</p>
+            <button type="submit">Link</button>
+          </form>
+          </div>)}
+        </div>      
+      ) : (
+        <div className="link-container">
+          <h1>Manage Link</h1>
+          <p>You have successfully linked with your partner</p>
+          <p>Want to disconnect? click un-linked below</p>
+        </div>
+      )}
+    </div>  
   );
   
 }

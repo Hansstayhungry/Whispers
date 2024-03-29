@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 
 const Home = (props) => {
 
-  const {handleLogin, handleLogout, user, loading} = props;
+  const {handleLogin, handleLogout, user, loading, partner} = props;
 
   // PENDING: MOVE TO HOOKS FOLDER, SEPARATION OF CONCERN
   // track onAdd ALL notes 
@@ -29,8 +29,8 @@ const Home = (props) => {
   return (
     <div className="app-container">    
       <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}></Header>
-      {user && <Navbar user={user}></Navbar>}
-      {user && <Status user={user}/>}
+      {user && <Navbar user={user} partner={partner}></Navbar>}
+      {user && <Status user={user} partner={partner}/>}
       <CreateArea onAdd={addNote} user={user}></CreateArea>
       {notes.map((note, index) => {
         return (

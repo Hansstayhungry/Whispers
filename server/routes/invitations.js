@@ -50,7 +50,11 @@ router.post("/verify", async(req, res) => {
 
   try {
 
-    const data = await invitations.getMatchByCode(receivedCode);
+    // get inviterId by validation code
+    const inviterId = await invitations.getInviterIdByCode(receivedCode);
+
+    // now we have all data needed to feed to getRelations function
+    const data = await invitations.getRelations(receivedCode, inviterId, inviteeId);
     if (!data || data.length === 0) {
       return res.json({ error: 'Invalid code' });
     // } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {

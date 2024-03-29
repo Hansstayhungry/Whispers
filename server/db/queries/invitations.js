@@ -40,17 +40,18 @@ async function createLink(inviterId, inviteeId, code) {
   }
 }
 
-async function getMatchByCode(email) {
+// get inviterId by validation code
+async function getInviterIdByCode(code) {
   try {
-    const data = await db.query('SELECT * FROM invitations WHERE code = $1', [code]);
-    return data.rows;
+    const data = await db.query('SELECT inviterId FROM invitations WHERE code = $1', [code]);
+    return data.rows[0];
   } catch (err) {
     console.log(err);
   }
 }
 
 // to validate the invitation code
-async function getRelations(id) {
+async function getRelations(code, inviterId, inviteeId) {
   try {
     const data = await db.query(
       `SELECT * 
@@ -67,4 +68,4 @@ async function getRelations(id) {
   }         
 }
 
-export default { getAllUsers, getUserById, getUserByEmail, createLink, getMatchByCode, getRelations };
+export default { getAllUsers, getUserById, getUserByEmail, createLink, getInviterIdByCode, getRelations };
