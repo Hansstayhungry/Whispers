@@ -40,29 +40,29 @@ router.post("/create", async(req, res) => {
 });
 
 // to manage code verification by comparing if code received and email match in invite form
-router.post("/verify", async(req, res) => {
+// router.post("/verify", async(req, res) => {
 
-  // get received code from client side
-  const { receivedCode } = req.body
+//   // get received code from client side
+//   const { receivedCode } = req.body
 
-  // now get invitee info from session
-  const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
+//   // now get invitee info from session
+//   const { id: inviteeId, username: inviteeUsername, email: inviteeEmail } = req.session.user;
 
-  try {
+//   try {
 
-    const data = await invitations.getMatchByCode(receivedCode);
-    if (!data || data.length === 0) {
-      return res.json({ error: 'Invalid code' });
-    } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
-      return res.json({ error: 'Invalid code' });
-    } else {
-      res.json({ codeIsMatched: true, message: 'Parnter linked successfully' });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error'});
-  }
-});
+//     const data = await invitations.getMatchByCode(receivedCode);
+//     if (!data || data.length === 0) {
+//       return res.json({ error: 'Invalid code' });
+//     } else if (data[0].inviteeId !== inviteeId || data[0].expired_at < new Date.now()) {
+//       return res.json({ error: 'Invalid code' });
+//     } else {
+//       res.json({ codeIsMatched: true, message: 'Partner linked successfully' });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: 'Internal server error'});
+//   }
+// });
 
 router.get("/checkLinked", async(req, res) => {
   const { id: user_id } = req.session.user;

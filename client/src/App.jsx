@@ -41,13 +41,6 @@ const App = () => {
     setUser(null);
   };
 
-  // handle link
-  const handleLinked = (e) => {
-    e.preventDefault();
-    console.log("setLink triggered")
-    //setLinked(true);
-  }
-
   // Effect to check for logged-in user on initial load
   useEffect(() => {
     axios.get('users/checkLoggedInUser')
@@ -81,7 +74,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} handleLinked={handleLinked} linked={linked} partner={partner} />,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} linked={linked} partner={partner} />,
     },
     {
       path: '/login',
@@ -108,7 +101,7 @@ const App = () => {
     {
       path: '/link',
       element: user ? (
-        <Link handleLinked={handleLinked} setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+        <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
       ) : (
         <Navigate to='/' />
       ),

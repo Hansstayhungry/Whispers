@@ -9,7 +9,7 @@ const Link = (props) => {
   // redirect to main page using react router dom
   const navigate = useNavigate();
   
-  const {handleLinked, setLinked, linked, user, handleLogout, loading} = props;
+  const { setLinked, linked, user, handleLogout, loading } = props;
 
   // manage code state when invitee input the code they received
   const [code, setCode] = useState("");
@@ -18,18 +18,18 @@ const Link = (props) => {
   const [disabled, setDisabled] = useState(true);
 
   // manage form data state
-  const [inviteeEmail, setinviteeEmail] = useState();
+  const [inviteeEmail, setinviteeEmail] = useState("");
 
-  const [verifyCode, setVerifyCode] = useState();
+  const [verifyCode, setVerifyCode] = useState("");
 
   // get warning message from server if invitee email is not registered
-  const [warning, setWarning] = useState();
+  const [warning, setWarning] = useState("");
 
   // set warning message to link form
-  const [warningLink, setWarningLink] = useState();
+  const [warningLink, setWarningLink] = useState("");
 
-  // set successful message when link is successful
-  const [linkSuccess, setLinkSuccess] = useState();
+  // // // set successful message when link is successful
+  // const [linkSuccess, setLinkSuccess] = useState("");
 
   // handle input change
   const handleLinkFormChange = (e) => {
@@ -64,7 +64,7 @@ const Link = (props) => {
   // handle invitee code submit
   const handleCodeSubmit = (e) => {
     e.preventDefault();
-    console.log("Target", e.target);
+    console.log("VerifyCode", verifyCode);
     // get invitee user id by email
 
 
@@ -74,12 +74,13 @@ const Link = (props) => {
           setWarningLink(data.error);
         } else {
           setWarningLink();
-          setLinkSuccess(data.message);
-          setLinked(true);
-          handleLinked();
+          setLinked(data.codeIsMatched);
+          // setLinkSuccess(data.message);
 
-          // redirect to home page after all process is done
-          navigate('/');
+          // redirect to home page 5 seconds delay after all process is done
+          // setTimeout(() => {
+          //   navigate('/');
+          // }, 5000);
         }
       })
       .catch(error => {
@@ -133,7 +134,7 @@ const Link = (props) => {
           {!code && (<div>
             <p>Have an invitation code? Enter it below now.</p>
           <form onSubmit={handleCodeSubmit} className="link-verification-form">
-            <input type="text" onChange={handleCodeChange} placeholder="Enter your invitation code"></input>
+            <input type="text" onChange={handleCodeChange} value={verifyCode} placeholder="Enter your invitation code"></input>
             <p>{warningLink}</p>
             <button type="submit">Link</button>
           </form>

@@ -43,7 +43,7 @@ async function createLink(inviterId, inviteeId, code) {
 // get inviterId by validation code
 async function getInviterIdByCode(code) {
   try {
-    const data = await db.query('SELECT inviterId FROM invitations WHERE code = $1', [code]);
+    const data = await db.query('SELECT inviterid FROM invitations WHERE code = $1', [code]);
     return data.rows[0];
   } catch (err) {
     console.log(err);
@@ -55,7 +55,7 @@ async function getRelations(code, inviterId, inviteeId) {
   try {
     const data = await db.query(
       `SELECT * 
-      FROM your_table_name 
+      FROM invitations 
       WHERE code = $1 
       AND inviterid = $2 
       AND inviteeid = $3 

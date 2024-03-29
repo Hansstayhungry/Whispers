@@ -75,9 +75,8 @@ const ToTa = (props) => {
                   <h3>{post.title}</h3>
                   <p className="content">{post.content}</p>
                   <p className="date">Posted at {localTime(post.created_at)}</p>
-                  <IconButton aria-label="delete">
-                    <DeleteIcon className="delete-button"
-                    onClick={() => handleDelete(post.id)}/>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(post.id)}>
+                    <DeleteIcon className="delete-button"/>
                   </IconButton>
                 </div>
               ))
