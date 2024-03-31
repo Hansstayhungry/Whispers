@@ -8,7 +8,7 @@ const Navbar = (props) => {
   return (
     <nav className="navbar-container">
       <div className="nav-links">
-        <Link to="/to-me" className="nav-link">{user.username}'s Inbox/ RECEIVED</Link>
+        {partner && <Link to="/to-me" className="nav-link">{user.username}'s Inbox/ RECEIVED</Link>}
         <Link to="/to-ta" className="nav-link">To {partner ? partner.username : 'ta'}'s inbox / SENT</Link>
       </div>
     </nav>

@@ -9,10 +9,13 @@ const ToMe = (props) => {
   console.log("user", user);
 
   // track every single posts state
-  const [posts, setPosts] = useState([{error: "No post yet! Go ahead and create your first whisper to your love!"}]);
+  const [posts, setPosts] = useState([]);
 
   // track loading state
   const [isloadingStatus, setIsloadingStatus] = useState(false);
+
+  // track no post state
+  const [noPost, setNoPost] = useState();
 
   // get all posts by user id
 
@@ -21,7 +24,10 @@ const ToMe = (props) => {
       setIsloadingStatus(true);
       const response = await axios.get(`/posts/user/${partner['id']}`);
       console.log("response", response);
-      if (response.data.length !== 0) {
+      if (response.data.length === 0) {
+        setPosts([]);
+        setNoPost([{message: "No post yet! Go ahead and create your first whisper to your love!"}])
+      } else {
         setPosts(response.data);
       }
     } catch (error) {
@@ -33,8 +39,7 @@ const ToMe = (props) => {
   // useEffect to get all posts by user id
   useEffect(() => {
     allPostsByUserId();
-  }
-  ,[partner]);
+  },[partner]);
 
 
   // convert time to system local time
@@ -62,8 +67,8 @@ const ToMe = (props) => {
           {isloadingStatus ? (
             <h2>Loading...</h2>
           ) : (
-            posts[0].error ? (
-              <h2>{posts[0].error}</h2>
+            noPost ? (
+              <h2>{posts[0].message}</h2>
             ) : (
               posts.map((post, index) => (
                 <div key={index} className="post">

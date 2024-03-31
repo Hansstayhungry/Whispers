@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
 
 const ToTa = (props) => {
-  const {user, link, handleLogout, loading} = props;
+  const {user, handleLogout, loading} = props;
 
   // track every single posts state
   const [posts, setPosts] = useState([]);
@@ -15,6 +15,9 @@ const ToTa = (props) => {
 
   // track loading state
   const [isloadingStatus, setIsloadingStatus] = useState(false);
+
+  // track no post state
+  const [noPost, setNoPost] = useState();
   
   // get all posts by user id
 
@@ -26,9 +29,9 @@ const ToTa = (props) => {
         console.log("response", response);
         if (response.data.length === 0) {
           setPosts([]);
+          setNoPost([{message: "No post yet! Go ahead and create your first whisper to your love!"}])
         } else {
           setPosts(response.data);
-          console.log("posts[0", posts[0]);
         }
       } catch (error) {
         console.error('Error getting all posts by user id:', error);
@@ -40,8 +43,7 @@ const ToTa = (props) => {
   // useEffect to get all posts by user id
   useEffect(() => {
     allPostsByUserId();
-  }
-  ,[user]);
+  }, [user]);
 
   // convert time to system local time
   const localTime = (time) => {
@@ -69,8 +71,8 @@ const ToTa = (props) => {
           {isloadingStatus ? (
             <h2>Loading...</h2>
           ) : (
-            posts.length === 0 ? (
-              <h2>No post yet! Go ahead and create your first whisper to your love!</h2>
+            noPost ? (
+              <h2>{noPost[0].message}</h2>
             ) : (
               posts.map((post, index) => (
                 <div key={index} className="post">
@@ -82,8 +84,8 @@ const ToTa = (props) => {
                   </IconButton>
                 </div>
               ))
-            )
-          )}
+            ))
+          }
         </div>
       </div>
     </div>

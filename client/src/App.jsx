@@ -13,10 +13,10 @@ import axios from 'axios';
 
 const App = () => {
   // State to manage the user's logged-in status
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   // State to manage the partner's information
-  const [partner, setPartner] = useState(null);
+  const [partner, setPartner] = useState();
 
   // State to manage loading status
   const [loading, setLoading] = useState(true);
@@ -33,12 +33,12 @@ const App = () => {
   const handleLogout = () => {
     axios.get('/users/logout')
       .then(() => {
-        setUser(null);
+        setUser();
       })
       .catch(error => {
         console.error('Error logging out:', error);
       });
-    setUser(null);
+    setUser();
   };
 
   // Effect to check for logged-in user on initial load
@@ -46,6 +46,7 @@ const App = () => {
     axios.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
+        console.log("checkLoggedInUser")
       })
       .then(() => {
         setLoading(false);
@@ -58,16 +59,19 @@ const App = () => {
   // Check if user is linked with another user
   useEffect(() => {
     // ensure checkedLoggedInUser is completed before checking linked relation"
-      axios.get('links/checkLinked')
+      if (user) {
+        axios.get('links/checkLinked')
         .then(response => {
+          console.log("checkLinked");
           setLinked(response.data.linked);
           const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
           setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
         })
         .catch(error => {
           console.error('Error checking linked user:', error);
-        });      
-  }, []);
+        });
+      }    
+  }, [user]);
 
   const router = createBrowserRouter([
     {
