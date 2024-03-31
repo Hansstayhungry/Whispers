@@ -102,12 +102,9 @@ const App = () => {
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: user ? (
-        <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
-      ) : (
-        <Navigate to='/' />
-      ),
-    },
+      element: user ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+      : <Navigate to="/" />
+    }
   ]);
   
   return (

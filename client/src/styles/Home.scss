@@ -1,0 +1,9 @@
+@import 'variables';
+
+.loveseat-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 30%;
+  margin: 50px auto;
+}

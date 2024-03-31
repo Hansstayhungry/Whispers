@@ -119,6 +119,11 @@ const Link = (props) => {
       return () => clearInterval(interval);
     }
   }, [countdown]);
+
+  // refresh page when linked state is changed
+  useEffect(() => {
+    console.log("link page refreshed!")
+  }, [linked]);
   
   return (
     <div>
