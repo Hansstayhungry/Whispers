@@ -11,7 +11,11 @@ A MULTI-PAGE web application of whispering love, designed exclusively for couple
 
 ### Main page
 ![mainPage](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Main-page.png)
-https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/main-page.mp4
+
+
+https://github.com/Hansstayhungry/Whispers/assets/91926739/5bec7586-997d-4a08-989f-45096295380d
+
+
 
 ### Sign up
 ![signUp](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/signup.png)
@@ -33,6 +37,14 @@ https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/main-page
 
 ### Read post
 ![readPost](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Received-post.png)
+
+### Demo
+
+
+https://github.com/Hansstayhungry/Whispers/assets/91926739/6f6387ad-932a-45d3-82b9-199e66ae96b3
+
+
+
 
 ## Before Start
   - Create a database in Postgres and loaded schemas by executing all files at 'server/db/schema/' by order.
