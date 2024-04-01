@@ -11,6 +11,7 @@ A MULTI-PAGE web application of whispering love, designed exclusively for couple
 
 ### Main page
 ![mainPage](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Main-page.png)
+https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/main-page.mp4
 
 ### Sign up
 ![signUp](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/signup.png)
