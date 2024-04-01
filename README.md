@@ -15,14 +15,17 @@ A MULTI-PAGE web application of whispering love, designed exclusively for couple
 ### Sign up
 ![signUp]()
 
+### After Sign-in
+![afterSignin]
+
 ### Link system
 ![linkSystem]()
 
 ### Generate code
 ![generateCode]()
 
-### Verification
-![verification]()
+### Post-Verification
+![after-linked]()
 
 ### Write post
 ![writePost]()
