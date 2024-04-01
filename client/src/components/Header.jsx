@@ -23,7 +23,7 @@ const Header = (props) => {
         {user ? (
           <div>
           <h2>{user.email}</h2>
-          <Button component={Link} to="/link" className="MuiLink-button">
+          <Button id="link" component={Link} to="/link" className="MuiLink-button">
           Link
           </Button>
 

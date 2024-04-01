@@ -7,7 +7,6 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
-import catsRoutes from './routes/catsRoutes.js';
 import users from './routes/users.js';
 import posts from './routes/posts.js';
 import invitations from './routes/invitations.js';
@@ -29,8 +28,6 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use('/cats', catsRoutes);
 
 //combine since both paths are using users route
 app.use('/users', users);

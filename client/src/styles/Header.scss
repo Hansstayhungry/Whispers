@@ -26,12 +26,17 @@
     height: 100px;
   }
 
+  #link {
+    background-color: darkgoldenrod;
+  }
+  
+
   .MuiLink-button {
     font-size: 2rem;
     background-color: $Remy-Martin-KV-illustration-rosepink;
     margin-right: 10px;
     color: white;
-    
+
     &:hover {
       background-color: chocolate;
     }
