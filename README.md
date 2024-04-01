@@ -10,28 +10,28 @@ A MULTI-PAGE web application of whispering love, designed exclusively for couple
 ## Screenshots
 
 ### Main page
-![mainPage]()
+![mainPage](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Main-page.png)
 
 ### Sign up
-![signUp]()
+![signUp](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/signup.png)
 
 ### After Sign-in
-![afterSignin]
+![afterSignin](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/after-signin.png)
 
 ### Link system
-![linkSystem]()
+![linkSystem](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Linked-system.png)
 
 ### Generate code
-![generateCode]()
+![generateCode](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Generate-code.png)
 
 ### Post-Verification
-![after-linked]()
+![after-linked](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/after-linked.png)
 
 ### Write post
-![writePost]()
+![writePost](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/write-post.png)
 
 ### Read post
-![readPost]()
+![readPost](https://github.com/Hansstayhungry/Whispers/blob/master/src/screenshots/Received-post.png)
 
 ## Before Start
   - Create a database in Postgres and loaded schemas by executing all files at 'server/db/schema/' by order.
