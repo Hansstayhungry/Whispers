@@ -41,4 +41,9 @@ app.use('/invitations', invitations);
 //handle link relations route
 app.use('/links', links);
 
+// testing if setup successfully
+app.get('/', (req, res) => {
+  res.json('Hello');
+});
+
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
