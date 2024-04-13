@@ -10,6 +10,7 @@ const pool = new Pool({
 	password: DB_PASSWORD,
 	port: DB_PORT,
 	database: DB_DATABASE,
+  ssl: true,
 })
 
 pool.connect().then(() => {
