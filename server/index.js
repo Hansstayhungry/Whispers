@@ -43,7 +43,9 @@ app.use('/links', links);
 
 // testing if setup successfully
 app.get('/', (req, res) => {
-  res.json('Hello');
+  res.send('Hello');
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+
+export default app;
