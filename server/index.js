@@ -16,7 +16,16 @@ const app = express();
 
 // middleware setup
 app.use(morgan(ENVIRONMENT));
-app.use(cors());
+
+// proudction
+app.use(cors(
+  {origin: "https://whispers-2.onrender.com"}
+));
+
+// development
+// app.use(cors(
+//   {origin: "http://localhost:3000",}
+// ));
 app.use(cookieParser());
 app.use(session({
   secret: 'couple',
