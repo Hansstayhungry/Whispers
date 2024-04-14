@@ -19,7 +19,7 @@ app.use(morgan(ENVIRONMENT));
 
 // proudction
 app.use(cors(
-  {origin: "https://whispers-2.onrender.com"}
+  {origin: "https://whispers-f1v1.onrender.com"}
 ));
 
 // development
