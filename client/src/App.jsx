@@ -42,19 +42,19 @@ const App = () => {
   };
 
   // Effect to check for logged-in user on initial load
-  useEffect(() => {
-    axios.get('users/checkLoggedInUser')
-      .then(response => {
-        setUser(response.data.user);
-        console.log("checkLoggedInUser")
-      })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error checking logged-in user:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('users/checkLoggedInUser')
+  //     .then(response => {
+  //       setUser(response.data.user);
+  //       console.log("checkLoggedInUser")
+  //     })
+  //     .then(() => {
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error checking logged-in user:', error);
+  //     });
+  // }, []);
 
   // Check if user is linked with another user
   useEffect(() => {
