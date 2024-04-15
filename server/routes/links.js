@@ -93,8 +93,7 @@ router.get("/checkLinked", async(req, res) => {
     if (req.session.user) {
       user_id = req.session.user.id;
     } else {
-      // Handle the case when req.session.user doesn't exist
-      return res.status(401).json({ error: 'User session not found' });
+      return res.json({ linked: false });
     }
 
     const data = await links.getRelations(user_id);

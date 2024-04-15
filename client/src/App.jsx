@@ -59,19 +59,21 @@ const App = () => {
 
   // Check if user is linked with another user
   useEffect(() => {
-    // ensure checkedLoggedInUser is completed before checking linked relation"
-      if (localStorage.getItem("isLoggedIn")) {
-        axios.get('links/checkLinked')
-        .then(response => {
-          console.log("checkLinked");
-          setLinked(response.data.linked);
-          const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
-          setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
-        })
-        .catch(error => {
-          console.error('Error checking linked user:', error);
-        });
-      }    
+    // checking linked relation"
+    axios.get('links/checkLinked')
+    .then(response => {
+      console.log("checkLinked");
+      if (!response.data.linked) {
+        return;
+      } else {
+        setLinked(response.data.linked);
+        const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
+        setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });        
+      }
+    })
+    .catch(error => {
+      console.error('Error checking linked user:', error);
+    });
   }, [user]);
 
   const router = createBrowserRouter([
