@@ -9,7 +9,7 @@ const Link = (props) => {
   // redirect to main page using react router dom
   const navigate = useNavigate();
   
-  const { setLinked, linked, user, handleLogout, loading } = props;
+  const { setLinked, linked, user, handleLogout, loading, api } = props;
 
   // manage code state when invitee input the code they received
   const [code, setCode] = useState("");
@@ -40,7 +40,7 @@ const Link = (props) => {
   const handleLinkFormSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('/invitations/create', {inviteeEmail: inviteeEmail})
+    api.post('/invitations/create', {inviteeEmail: inviteeEmail})
       .then((response) => {
         if (response.data.warning) {
           setWarning(response.data.warning);
@@ -68,7 +68,7 @@ const Link = (props) => {
     // get invitee user id by email
 
 
-    axios.post('/links/verify', {verifyCode: verifyCode})
+    api.post('/links/verify', {verifyCode: verifyCode})
       .then((data) => {
         if (data.error) {
           setWarningLink(data.error);
@@ -94,7 +94,7 @@ const Link = (props) => {
 
   // handle Unlink between users
   const handleUnlink = () => {
-    axios.delete(`/links/unlink/${user.id}`)
+    api.delete(`/links/unlink/${user.id}`)
       .then(() => {
         setLinked(false);
       })

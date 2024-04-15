@@ -12,6 +12,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App = () => {
+  // Create an instance of Axios with a baseURL
+  const api = axios.create({
+    baseURL: 'https://whispers-backend.onrender.com', // Replace with your backend URL
+  });
+
   // State to manage the user information
   const [user, setUser] = useState();
 
@@ -32,7 +37,7 @@ const App = () => {
 
   // Function to handle logout
   const handleLogout = () => {
-    axios.get('/users/logout')
+    api.get('/users/logout')
       .then(() => {
         setUser();
         localStorage.removeItem('isLoggedIn');
@@ -44,7 +49,7 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    axios.get('users/checkLoggedInUser')
+    api.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
         console.log("checkLoggedInUser")
@@ -60,7 +65,7 @@ const App = () => {
   // Check if user is linked with another user
   useEffect(() => {
     // checking linked relation"
-    axios.get('links/checkLinked')
+    api.get('links/checkLinked')
     .then(response => {
       console.log("checkLinked");
       if (!response.data.linked) {
@@ -79,15 +84,15 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} linked={linked} partner={partner} />,
+      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} linked={linked} partner={partner} api={api}/>,
     },
     {
       path: '/login',
-      element: <Login handleLogin={handleLogin} handleLogout={handleLogout} />,
+      element: <Login handleLogin={handleLogin} handleLogout={handleLogout} api={api}/>,
     },
     {
       path: '/signup',
-      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout} />,
+      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout} api={api}/>,
     },
     {
       path: '*',
@@ -95,17 +100,17 @@ const App = () => {
     }, 
     {
       path: '/to-me',
-      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} partner={partner} />,
+      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} partner={partner} api={api}/>,
     },
     {
       path: '/to-ta',
-      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} />,
+      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} api={api}/>,
     },
 
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}/>
       : <Navigate to="/" />
     }
   ]);

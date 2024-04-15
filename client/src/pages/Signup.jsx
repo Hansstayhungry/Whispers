@@ -6,7 +6,7 @@ import axios from "axios";
 import '../styles/Signup.scss'
 
 const Signup = (props) => {
-  const { handleLogin } = props;
+  const { handleLogin, api } = props;
 
   // redirect to main page using react router dom
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Signup = (props) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/users/signup', signupFormDatas);
+      const response = await api.post('/users/signup', signupFormDatas);
       console.log(response);
 
       // set login state to true if sign up is successful

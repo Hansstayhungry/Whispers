@@ -5,7 +5,7 @@ import axios from "axios";
 import "../styles/ToMe.scss";
 
 const ToMe = (props) => {
-  const {user, link, handleLogout, loading, setUser, partner} = props;
+  const {user, link, handleLogout, loading, setUser, partner, api} = props;
   console.log("user", user);
 
   // track every single posts state
@@ -22,7 +22,7 @@ const ToMe = (props) => {
   const allPostsByUserId = async () => {
     try {
       setIsloadingStatus(true);
-      const response = await axios.get(`/posts/user/${partner['id']}`);
+      const response = await api.get(`/posts/user/${partner['id']}`);
       console.log("response", response);
       if (response.data.length === 0) {
         setPosts([]);
@@ -51,7 +51,7 @@ const ToMe = (props) => {
   // handle delete post by post id
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`/posts/delete/${postId}`);
+      await api.delete(`/posts/delete/${postId}`);
       allPostsByUserId();
     } catch (error) {
       console.error('Error when deleting post:', error);

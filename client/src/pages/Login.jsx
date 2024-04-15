@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Login = (props) => {
 
-  const { handleLogin } = props;
+  const { handleLogin, api } = props;
 
   // redirect to main page using react router dom
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ const Login = (props) => {
   const [serverError, setServerError] = useState('false');
 
   // set up axios to send cookies
-  axios.defaults.withCredentials = true
+  api.defaults.withCredentials = true
 
   const handleSubmit = async function (event) {
     event.preventDefault();
     try {
-      const response = await axios.post('/users/login', loginFormDatas);
+      const response = await api.post('/users/login', loginFormDatas);
 
       if (response.data.userInfo) {
         // // set login state to true if sign up is successful, and pass user info to parent component

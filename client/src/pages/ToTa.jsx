@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
 
 const ToTa = (props) => {
-  const {user, handleLogout, loading} = props;
+  const {user, handleLogout, loading, api} = props;
 
   // track every single posts state
   const [posts, setPosts] = useState([]);
@@ -25,7 +25,7 @@ const ToTa = (props) => {
     if (user) {
       try {
         setIsloadingStatus(true);
-        const response = await axios.get(`/posts/user/${user.id}`);
+        const response = await api.get(`/posts/user/${user.id}`);
         console.log("response", response);
         if (response.data.length === 0) {
           setPosts([]);
@@ -54,7 +54,7 @@ const ToTa = (props) => {
   // handle delete post by post id
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`/posts/delete/${postId}`);
+      await api.delete(`/posts/delete/${postId}`);
       const updatedPosts = posts.filter(post => post.id !== postId);
       setPosts(updatedPosts);        
     } catch (error) {

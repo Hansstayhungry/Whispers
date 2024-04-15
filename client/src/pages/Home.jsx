@@ -10,7 +10,7 @@ import "../styles/Home.scss";
 
 const Home = (props) => {
 
-  const {handleLogin, handleLogout, user, loading, partner} = props;
+  const {handleLogin, handleLogout, user, loading, partner, api} = props;
 
 
   return (
@@ -18,7 +18,7 @@ const Home = (props) => {
       <Header handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading}></Header>
       {user && <Navbar user={user} partner={partner}></Navbar>}
       {user && <Status user={user} partner={partner}/>}
-      {user && <CreateArea user={user}></CreateArea>}
+      {user && <CreateArea user={user} api={api}></CreateArea>}
       <div className="loveseat-container">
         <Lottie animationData={loveseat} loop={true} width={400}/>
       </div>
