@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App = () => {
-  // State to manage the user's logged-in status
+  // State to manage the user information
   const [user, setUser] = useState();
 
   // State to manage the partner's information
@@ -27,6 +27,7 @@ const App = () => {
   // Function to handle login
   const handleLogin = (userData) => {
     setUser(userData);
+    localStorage.setItem('isLoggedIn', 'true');
   };
 
   // Function to handle logout
@@ -34,32 +35,32 @@ const App = () => {
     axios.get('/users/logout')
       .then(() => {
         setUser();
+        localStorage.removeItem('isLoggedIn');
       })
       .catch(error => {
         console.error('Error logging out:', error);
       });
-    setUser();
   };
 
   // Effect to check for logged-in user on initial load
-  // useEffect(() => {
-  //   axios.get('users/checkLoggedInUser')
-  //     .then(response => {
-  //       setUser(response.data.user);
-  //       console.log("checkLoggedInUser")
-  //     })
-  //     .then(() => {
-  //       setLoading(false);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error checking logged-in user:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios.get('users/checkLoggedInUser')
+      .then(response => {
+        setUser(response.data.user);
+        console.log("checkLoggedInUser")
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error checking logged-in user:', error);
+      });
+  }, []);
 
   // Check if user is linked with another user
   useEffect(() => {
     // ensure checkedLoggedInUser is completed before checking linked relation"
-      if (user) {
+      if (localStorage.getItem("isLoggedIn")) {
         axios.get('links/checkLinked')
         .then(response => {
           console.log("checkLinked");
@@ -102,7 +103,7 @@ const App = () => {
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: user ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
+      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} />
       : <Navigate to="/" />
     }
   ]);

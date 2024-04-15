@@ -20,7 +20,7 @@ const Header = (props) => {
     {/* // conditional rendering of login/logout button */}
     {!loading && (<div className="sign-container">
       <span className="buttonGroup">
-        {user ? (
+        {localStorage.getItem("isLoggedIn") ? (
           <div>
           <h2>{user.email}</h2>
           <Button id="link" component={Link} to="/link" className="MuiLink-button">

@@ -4,7 +4,6 @@ const {ENVIRONMENT, PORT} = process.env;
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
 import users from './routes/users.js';
@@ -16,23 +15,11 @@ const app = express();
 
 // middleware setup
 app.use(morgan(ENVIRONMENT));
-
-// proudction
-app.use(cors(
-  {origin: "https://whispers-f1v1.onrender.com"}
-));
-
-// development
-// app.use(cors(
-//   {origin: "http://localhost:3000",}
-// ));
-app.use(cookieParser());
+app.use(cors());
 app.use(session({
   secret: 'couple',
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    expires: 60 * 60 * 24 * 1000}
 }));
 
 app.use(express.json());
