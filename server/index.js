@@ -15,7 +15,12 @@ const app = express();
 
 // middleware setup
 app.use(morgan(ENVIRONMENT));
-app.use(cors());
+app.use(cors(
+  {
+    origin: ['http://localhost:3000', 'https://whispers-f1v1.onrender.com'],
+    credentials: true,
+  }
+));
 app.use(session({
   secret: 'couple',
   resave: false,
