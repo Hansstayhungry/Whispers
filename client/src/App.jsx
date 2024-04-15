@@ -32,7 +32,7 @@ const App = () => {
 
   // Function to handle logout
   const handleLogout = () => {
-    axios.get('https://whispers-backend.onrender.com//users/logout')
+    axios.get('/users/logout')
       .then(() => {
         setUser();
         localStorage.removeItem('isLoggedIn');
@@ -44,7 +44,7 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    axios.get('https://whispers-backend.onrender.com/users/checkLoggedInUser')
+    axios.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
         console.log("checkLoggedInUser")
