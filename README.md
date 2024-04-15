@@ -1,6 +1,8 @@
 # Whispers APP
 
 Whispers - A post sharing app designed between couples
+It is now available at https://whispers-f1v1.onrender.com/
+PostgreSQL for Azure is implemented for this demo.
 
 ## About
 
