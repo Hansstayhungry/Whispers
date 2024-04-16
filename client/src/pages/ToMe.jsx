@@ -26,7 +26,7 @@ const ToMe = (props) => {
       console.log("response", response);
       if (response.data.length === 0) {
         setPosts([]);
-        setNoPost([{message: "No post yet! Go ahead and create your first whisper to your love!"}])
+        setNoPost([{message: "No post yet! Go ahead and ask your partner to whisper you the first message!"}])
       } else {
         setPosts(response.data);
       }
@@ -68,7 +68,7 @@ const ToMe = (props) => {
             <h2>Loading...</h2>
           ) : (
             noPost ? (
-              <h2>{posts[0].message}</h2>
+              <h2>{noPost[0].message}</h2>
             ) : (
               posts.map((post, index) => (
                 <div key={index} className="post">
