@@ -53,6 +53,10 @@ router.post("/verify", async(req, res) => {
 
     // get inviterId by validation code
     const inviter = await invitations.getInviterIdByCode(receivedCode);
+    if (!inviter || inviter.length === 0) {
+      return res.json({ warning: 'Invalid code' });
+    }
+    
     const inviterId = inviter['inviterid'];
     console.log("inviterId", inviterId);
 
@@ -60,15 +64,15 @@ router.post("/verify", async(req, res) => {
     const data = await invitations.getRelations(receivedCode, inviterId, inviteeId);
     if (!data || data.length === 0) {
       console.log("stop at if");
-      return res.json({ error: 'Invalid code' });
+      return res.json({ warning: 'Invalid code' });
     } else if (data[0].inviteeid !== inviteeId || data[0].expired_at < new Date()) {
       console.log("data[0].inviteeid", data[0].inviteeid, "inviteeId", inviteeId, "data[0].expired_at", data[0].expired_at, "new Date()", new Date());
       console.log("stop at else if");
-      return res.json({ error: 'Invalid code' });
+      return res.json({ warning: 'Invalid code' });
     } else {
       const newRelation = await links.createRelations(inviterId, inviteeId);
       console.log("newRelation", newRelation)
-      res.json({ codeIsMatched: true, message: 'Code matched!' });
+      res.json({ message: 'Code matched!' });
     }
   } catch (error) {
     console.log(error);

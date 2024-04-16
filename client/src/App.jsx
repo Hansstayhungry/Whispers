@@ -14,8 +14,10 @@ import axios from 'axios';
 const App = () => {
   // Create an instance of Axios with a baseURL
   const api = axios.create({
-    baseURL: 'https://whispers-backend.onrender.com', // Replace with your backend URL
+    baseURL: 'http://localhost:8080', // Replace with your backend URL
   });
+
+  api.defaults.withCredentials = true;
 
   // State to manage the user information
   const [user, setUser] = useState();
@@ -52,6 +54,7 @@ const App = () => {
     api.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
+        console.log("response.data.user: ",response.data.user)
         console.log("checkLoggedInUser")
       })
       .then(() => {

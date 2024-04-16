@@ -25,6 +25,9 @@ app.use(session({
   secret: 'couple',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  }
 }));
 
 app.use(express.json());

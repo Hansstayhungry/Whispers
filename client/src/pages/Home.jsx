@@ -10,8 +10,7 @@ import "../styles/Home.scss";
 
 const Home = (props) => {
 
-  const {handleLogin, handleLogout, user, loading, partner, api} = props;
-
+  const { handleLogin, handleLogout, user, loading, partner, api } = props;
 
   return (
     <div className="app-container">    

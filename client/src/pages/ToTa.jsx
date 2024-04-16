@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
 
 const ToTa = (props) => {
-  const {user, handleLogout, loading, api} = props;
+  const { user, handleLogout, loading, api } = props;
 
   // track every single posts state
   const [posts, setPosts] = useState([]);

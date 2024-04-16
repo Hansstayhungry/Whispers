@@ -32,8 +32,6 @@ const Link = (props) => {
   // const [linkSuccess, setLinkSuccess] = useState("");
 
 
-  api.defaults.withCredentials = true
-
   // handle input change
   const handleLinkFormChange = (e) => {
     setinviteeEmail(e.target.value);
@@ -72,13 +70,13 @@ const Link = (props) => {
 
 
     api.post('/links/verify', {verifyCode: verifyCode})
-      .then((data) => {
-        if (data.error) {
-          setWarningLink(data.error);
+      .then((response) => {
+        if (response.data.warning) {
+          setWarningLink(response.data.warning);
           return;
         } else {
           setWarningLink();
-          setLinked(data.codeIsMatched);
+          setLinked(true);
           // setLinkSuccess(data.message);
 
           // redirect to home page 5 seconds delay after all process is done
@@ -122,11 +120,6 @@ const Link = (props) => {
       return () => clearInterval(interval);
     }
   }, [countdown]);
-
-  // refresh page when linked state is changed
-  useEffect(() => {
-    console.log("link page refreshed!")
-  }, [linked]);
   
   return (
     <div>
@@ -167,7 +160,7 @@ const Link = (props) => {
           <button onClick={handleUnlink}>UN-LINK</button>
         </div>
       )}
-    </div>  
+    </div>
   );
   
 }
