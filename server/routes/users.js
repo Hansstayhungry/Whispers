@@ -57,6 +57,7 @@ router.post("/login", async(req, res) => {
     const useremail = user[0].email;
 
     const match = await bcrypt.compare(password, userHashedPassword);
+    console.log('passwordmatch:', match);
 
     // sending extra match data for tracking incorrect password error
     if (match) {
