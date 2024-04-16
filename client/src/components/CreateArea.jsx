@@ -6,6 +6,8 @@ import "../styles/CreateArea.scss";
 
 const CreateArea = (props) => {
 
+  const { api } = props;
+
   const [post, setPost] = useState({
     title: "",
     content: ""
@@ -44,7 +46,7 @@ const CreateArea = (props) => {
   const handleSubmission = function (e) {
     // props.onAdd(note);
     e.preventDefault();
-    axios.post('/posts/create', post)
+    api.post('/posts/create', post)
 
     clearInput()
   }
