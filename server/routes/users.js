@@ -44,7 +44,8 @@ router.post("/login", async(req, res) => {
   const { email, password } = req.body
 
   try {
-    const user = await users.getUserByEmail(email);
+    const userEmailLowerCase = email.toLowerCase();
+    const user = await users.getUserByEmail(userEmailLowerCase);
 
     // If no user found with the given email
     if (!user || user.length === 0) {
