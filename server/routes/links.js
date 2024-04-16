@@ -56,7 +56,7 @@ router.post("/verify", async(req, res) => {
     if (!inviter || inviter.length === 0) {
       return res.json({ warning: 'Invalid code' });
     }
-    
+
     const inviterId = inviter['inviterid'];
     console.log("inviterId", inviterId);
 
@@ -72,7 +72,13 @@ router.post("/verify", async(req, res) => {
     } else {
       const newRelation = await links.createRelations(inviterId, inviteeId);
       console.log("newRelation", newRelation)
-      res.json({ message: 'Code matched!' });
+
+      // pass partner info to client side
+      const partner = await users.getUserById(inviterId);
+      console.log("partner", partner);
+      // Destructuring partner object to exclude password field
+      const { password, ...partnerWithoutPassword } = partner[0];
+      res.json({ partner: partnerWithoutPassword, message: 'Code matched!'});
     }
   } catch (error) {
     console.log(error);
@@ -103,7 +109,9 @@ router.get("/checkLinked", async(req, res) => {
     const data = await links.getRelations(user_id);
     if ( data.length !== 0) {
       const partner = await users.getUserById(data[0].partner_id);
-      res.json({ linked: true, partner: partner[0]});
+      // Destructuring partner object to exclude password field
+      const { password, ...partnerWithoutPassword } = partner[0];
+      res.json({ linked: true, partner: partnerWithoutPassword});
     }
   } catch (error) {
     console.log(error);

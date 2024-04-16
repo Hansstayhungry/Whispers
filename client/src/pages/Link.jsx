@@ -9,7 +9,7 @@ const Link = (props) => {
   // redirect to main page using react router dom
   const navigate = useNavigate();
   
-  const { setLinked, linked, user, handleLogout, loading, api } = props;
+  const { setLinked, linked, user, handleLogout, loading, api, setPartner } = props;
 
   // manage code state when invitee input the code they received
   const [code, setCode] = useState("");
@@ -48,7 +48,7 @@ const Link = (props) => {
         } else {
           setCode(response.data.code);
           setDisabled(true);
-          setCountdown(60);          
+          setCountdown(120);          
         }
       })
       .catch(error => {
@@ -77,6 +77,9 @@ const Link = (props) => {
         } else {
           setWarningLink();
           setLinked(true);
+          console.log("response.data.partner", response.data.partner);
+          const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
+          setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
           // setLinkSuccess(data.message);
 
           // redirect to home page 5 seconds delay after all process is done
@@ -138,6 +141,7 @@ const Link = (props) => {
                 <p>Here is the code. Please share it with your partner.</p>
                 <h2>{code}</h2>
                 <h2>The code will expire in {countdown} seconds</h2>
+                <p>Once it is linked successfully, please refresh the page</p>
                 <p>Re-generate a new code</p>
                 <button type="submit" disabled={disabled}>RE-GENERATE</button>
               </div>

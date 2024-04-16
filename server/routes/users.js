@@ -11,7 +11,8 @@ router.post("/signup", async(req, res) => {
   
   try {
     // check if email exists in database
-    const user = await users.getUserByEmail(email);
+    const userEmailLowerCase = email.toLowerCase();
+    const user = await users.getUserByEmail(userEmailLowerCase);
 
     if (user[0]) {
       res.status(409).json({ message: 'account already exists' })

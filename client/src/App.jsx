@@ -34,7 +34,7 @@ const App = () => {
   // Function to handle login
   const handleLogin = (userData) => {
     setUser(userData);
-    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('isLoggedIn', true);
   };
 
   // Function to handle logout
@@ -54,6 +54,10 @@ const App = () => {
     api.get('users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.user);
+        if (!response.data.user) {
+          localStorage.removeItem('isLoggedIn');
+        }
+
         console.log("response.data.user: ",response.data.user)
         console.log("checkLoggedInUser")
       })
@@ -113,7 +117,8 @@ const App = () => {
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}/>
+      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}
+        setPartner={setPartner}/>
       : <Navigate to="/" />
     }
   ]);
