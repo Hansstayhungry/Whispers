@@ -31,6 +31,9 @@ const Link = (props) => {
   // // // set successful message when link is successful
   // const [linkSuccess, setLinkSuccess] = useState("");
 
+
+  api.defaults.withCredentials = true
+
   // handle input change
   const handleLinkFormChange = (e) => {
     setinviteeEmail(e.target.value);

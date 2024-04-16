@@ -4,6 +4,14 @@ Whispers - A post sharing app designed between couples
 It is now available at https://whispers-f1v1.onrender.com/
 PostgreSQL for Azure is implemented for this demo.
 
+If you don't feel like sign up to test out the features, you can utlize the demo account below:
+(email and password are the same)
+demo1@demo.com
+demo2@demo.com
+
+demo3@demo.com
+demo4@demo.com
+
 ## About
 
 Pruodly present, one of a kind - You won't find the idea elsewhere!
