@@ -29,8 +29,15 @@ router.post("/signup", async(req, res) => {
         username: newUser[0].username,
         email: newUser[0].email
       }
+      
+      // bypass Render website restriction
+      userInfo = {
+        id: newUser[0].id,
+        username: newUser[0].username,
+        email: newUser[0].email
+      }
 
-      res.json({ isLogin: true, userInfo: req.session.user, message: 'User registered successfully'});      
+      res.json({ isLogin: true, userInfo: userInfo, message: 'User registered successfully'});      
     }
 
   } catch (error) {
