@@ -31,7 +31,7 @@ router.post("/signup", async(req, res) => {
       }
       
       // bypass Render website restriction
-      userInfo = {
+      const userInfo = {
         id: req.session.user.id,
         username: req.session.user.username,
         email: req.session.user.email
@@ -75,7 +75,7 @@ router.post("/login", async(req, res) => {
         email: useremail
       }
       // bypass Render website restriction
-      userInfo = {
+      const userInfo = {
         id: req.session.user.id,
         username: req.session.user.username,
         email: req.session.user.email
@@ -97,7 +97,7 @@ router.get("/checkLoggedInUser", (req, res) => {
   console.log("sent")
   if (req.session.user) {
     // bypass Render website restriction
-    userInfo = {
+    const userInfo = {
       id: req.session.user.id,
       username: req.session.user.username,
       email: req.session.user.email
