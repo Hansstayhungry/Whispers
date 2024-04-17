@@ -51,7 +51,7 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    api.get('users/checkLoggedInUser')
+    api.get('/users/checkLoggedInUser')
       .then(response => {
         setUser(response.data.userInfo);
         console.log("setUser(response.data.user): ",response.data.userInfo)
@@ -73,7 +73,7 @@ const App = () => {
   // Check if user is linked with another user
   useEffect(() => {
     // checking linked relation"
-    api.get('links/checkLinked')
+    api.get('/links/checkLinked')
     .then(response => {
       console.log("checkLinked");
       if (!response.data.linked) {
