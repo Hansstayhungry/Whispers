@@ -16,7 +16,7 @@ const App = () => {
   const api = axios.create({
     baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
   });
-  
+
 
   api.defaults.withCredentials = true;
 
@@ -52,30 +52,33 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    api.get('/users/checkLoggedInUser')
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/users/checkLoggedInUser');
         setUser(response.data.userInfo);
-        console.log("setUser(response.data.user): ",response.data.userInfo)
+        console.log("setUser(response.data.userInfo): ", response.data.userInfo);
+  
         if (!response.data.userInfo) {
           localStorage.removeItem('isLoggedIn');
         }
-
-        console.log("response.data.user: ",response.data.userInfo)
-        console.log("checkLoggedInUser")
-      })
-      .then(() => {
+  
+        console.log("response.data.userInfo: ", response.data.userInfo);
+        console.log("checkLoggedInUser");
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error checking logged-in user:', error);
-      });
+      }
+    };
+  
+    fetchData();
   }, []);
+  
 
   // Check if user is linked with another user
-  useEffect(() => {
-    // checking linked relation"
-    api.get('/links/checkLinked')
-    .then(response => {
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await api.get('/links/checkLinked');
       console.log("checkLinked");
       if (!response.data.linked) {
         return;
@@ -84,11 +87,14 @@ const App = () => {
         const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
         setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });        
       }
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error checking linked user:', error);
-    });
-  }, [user]);
+    }
+  };
+
+  fetchData();
+}, [user]);
+
 
   const router = createBrowserRouter([
     {
