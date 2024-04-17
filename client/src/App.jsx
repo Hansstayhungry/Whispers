@@ -53,12 +53,13 @@ const App = () => {
   useEffect(() => {
     api.get('users/checkLoggedInUser')
       .then(response => {
-        setUser(response.data.user);
-        if (!response.data.user) {
+        setUser(response.data.userInfo);
+        console.log("setUser(response.data.user): ",response.data.userInfo)
+        if (!response.data.userInfo) {
           localStorage.removeItem('isLoggedIn');
         }
 
-        console.log("response.data.user: ",response.data.user)
+        console.log("response.data.user: ",response.data.userInfo)
         console.log("checkLoggedInUser")
       })
       .then(() => {

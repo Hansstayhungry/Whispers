@@ -103,7 +103,7 @@ router.get("/checkLoggedInUser", (req, res) => {
       email: req.session.user.email
     }
     console.log('user:', userInfo);
-    res.json({ user: userInfo });
+    res.json({ userInfo: userInfo });
   } else {
     res.json({ user: null});
   }
