@@ -95,6 +95,7 @@ router.post("/login", async(req, res) => {
 // check if user is logged in when refresh the home page
 router.get("/checkLoggedInUser", (req, res) => {
   console.log("sent")
+  console.log("req.session.user from checkLoggedInUser", req.session.user);
   if (req.session.user) {
     // bypass Render website restriction
     const userInfo = {
