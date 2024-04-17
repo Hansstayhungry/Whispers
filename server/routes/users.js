@@ -74,8 +74,15 @@ router.post("/login", async(req, res) => {
         username: username,
         email: useremail
       }
+      // bypass Render website restriction
+      userInfo = {
+        id: newUser[0].id,
+        username: newUser[0].username,
+        email: newUser[0].email
+      }
+
       console.log('user logged in:', req.session.user);
-      res.json({ isLogin: true, userInfo: req.session.user, message: 'login successful' });
+      res.json({ isLogin: true, userInfo: userInfo, message: 'login successful' });
     } else {
       res.json({ message: 'invalid email or password' });
     }
@@ -89,8 +96,14 @@ router.post("/login", async(req, res) => {
 router.get("/checkLoggedInUser", (req, res) => {
   console.log("sent")
   if (req.session.user) {
-    console.log('user:', req.session.user);
-    res.json({ user: req.session.user });
+    // bypass Render website restriction
+    userInfo = {
+      id: req.session.user.id,
+      username: req.session.user.username,
+      email: req.session.user.email
+    }
+    console.log('user:', userInfo);
+    res.json({ user: userInfo });
   } else {
     res.json({ user: null});
   }
