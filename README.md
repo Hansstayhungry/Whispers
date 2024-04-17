@@ -3,6 +3,7 @@
 Whispers - A post sharing app designed between couples
 It is now available at https://whispers-f1v1.onrender.com/
 PostgreSQL for Azure is implemented for this demo.
+## ATTENTION, DUE TO THE LIMITAION on onrender.com. onrender.com is an entry on the public suffix list, this restricts access to cookies across subdomains. Therefore, the functionality of the hosted website is compromised.
 
 If you don't feel like sign up to test out the features, you can utlize the demo account below:
 (email and password are the same)
@@ -58,6 +59,8 @@ https://github.com/Hansstayhungry/Whispers/assets/91926739/6f6387ad-932a-45d3-82
 
 ## Before Start
   - Create a database in Postgres and loaded schemas by executing all files at 'server/db/schema/' by order.
+
+  in client side - App.jsx, replace baseURL with backend URL (e.g: http://localhost:8080)
 
 ## Getting Started
   two folders: client, and server
