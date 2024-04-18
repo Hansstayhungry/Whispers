@@ -104,9 +104,9 @@ router.get("/checkLoggedInUser", (req, res) => {
       email: req.session.user.email
     }
     console.log('user:', userInfo);
-    res.json({ userInfo: userInfo });
+    res.json({ authenticated: true, userInfo: userInfo });
   } else {
-    res.json({ user: null});
+    res.json({ authenticated: false});
   }
 });
 

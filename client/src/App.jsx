@@ -52,37 +52,37 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/users/checkLoggedInUser');
+      checkSession();
+  }, []);
+
+  // Function to check for logged-in user
+  const checkSession = async () => {
+    try {
+      const response = await api.get('/users/checkLoggedInUser');
+      if (response.data.authenticated) {
         setUser(response.data.userInfo);
         console.log("setUser(response.data.userInfo): ", response.data.userInfo);
-  
-        if (!response.data.userInfo) {
-          localStorage.removeItem('isLoggedIn');
-        }
-  
+
         console.log("response.data.userInfo: ", response.data.userInfo);
         console.log("checkLoggedInUser");
         setLoading(false);
-      } catch (error) {
-        console.error('Error checking logged-in user:', error);
       }
-    };
-  
-    fetchData();
-  }, []);
+    } catch (error) {
+      console.error('Error checking logged-in user:', error);
+    }
+  };
   
 
-  // Check if user is linked with another user
-useEffect(() => {
-  const fetchData = async () => {
+    // Check if user is linked with another user
+  useEffect(() => {
+    checkLinked();
+  }, [user]);
+
+  const checkLinked = async () => {
     try {
       const response = await api.get('/links/checkLinked');
       console.log("checkLinked");
-      if (!response.data.linked) {
-        return;
-      } else {
+      if (response.data.linked) {
         setLinked(response.data.linked);
         const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
         setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });        
@@ -91,9 +91,6 @@ useEffect(() => {
       console.error('Error checking linked user:', error);
     }
   };
-
-  fetchData();
-}, [user]);
 
 
   const router = createBrowserRouter([
