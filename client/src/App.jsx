@@ -14,7 +14,8 @@ import axios from 'axios';
 const App = () => {
   // Create an instance of Axios with a baseURL
   const api = axios.create({
-    baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
+    baseURL: 'https://whispers-f1v1.onrender.com/', // Replace with backend URL
+    // https://whispers-f1v1.onrender.com/ or http://localhost:8080
   });
 
 
@@ -50,13 +51,14 @@ const App = () => {
 
   // Effect to check for logged-in user on initial load
   useEffect(() => {
-      checkSession();
+    checkSession();
   }, []);
 
   // Function to check for logged-in user
   const checkSession = async () => {
     try {
       const response = await api.get('/users/checkLoggedInUser');
+      console.log("checkSession");
       if (response.data.authenticated) {
         setUser(response.data.userInfo);
         console.log("setUser(response.data.userInfo): ", response.data.userInfo);
@@ -64,6 +66,8 @@ const App = () => {
         console.log("response.data.userInfo: ", response.data.userInfo);
         console.log("checkLoggedInUser");
         setLoading(false);
+      } else {
+        setLoading(false);;
       }
     } catch (error) {
       console.error('Error checking logged-in user:', error);
