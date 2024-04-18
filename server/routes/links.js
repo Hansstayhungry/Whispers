@@ -103,20 +103,20 @@ router.get("/checkLinked", async(req, res) => {
     if (req.session.user) {
       user_id = req.session.user.id;
     } else {
-      return res.json({ linked: false });
+      // Handle the case when req.session.user doesn't exist
+      return res.status(401).json({ error: 'User session not found' });
     }
 
     const data = await links.getRelations(user_id);
     if ( data.length !== 0) {
       const partner = await users.getUserById(data[0].partner_id);
-      // Destructuring partner object to exclude password field
-      const { password, ...partnerWithoutPassword } = partner[0];
-      res.json({ linked: true, partner: partnerWithoutPassword});
+      res.json({ linked: true, partner: partner[0]});
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error'});
   }
-})
+});
+
 
 export default router;

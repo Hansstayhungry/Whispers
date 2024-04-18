@@ -14,7 +14,7 @@ import axios from 'axios';
 const App = () => {
   // Create an instance of Axios with a baseURL
   const api = axios.create({
-    baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
+    baseURL: 'https://whispers-backend.onrender.com/', // Replace with backend URL
     // https://whispers-backend.onrender.com/ or http://localhost:8080
   });
 
@@ -33,11 +33,6 @@ const App = () => {
   // state to manage if user is linked with another user
   const [linked, setLinked] = useState(false);
 
-  // Function to handle login
-  const handleLogin = (userData) => {
-    setUser(userData);
-  };
-
   // Function to handle logout
   const handleLogout = () => {
     api.get('/users/logout')
@@ -49,10 +44,6 @@ const App = () => {
       });
   };
 
-  // Effect to check for logged-in user on initial load
-  useEffect(() => {
-    checkSession();
-  }, []);
 
   // Function to check for logged-in user
   const checkSession = async () => {
@@ -74,39 +65,47 @@ const App = () => {
     }
   };
   
-
-    // Check if user is linked with another user
-  useEffect(() => {
-    checkLinked();
-  }, [user]);
-
   const checkLinked = async () => {
     try {
-      const response = await api.get('/links/checkLinked');
-      console.log("checkLinked");
-      if (response.data.linked) {
+
+      // ensure the user is logged in before checking linked user
+      if (user) {
+        const response = await api.get('links/checkLinked');
         setLinked(response.data.linked);
         const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
-        setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });        
+        setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
+      } else {
+        console.log("no user");
       }
     } catch (error) {
       console.error('Error checking linked user:', error);
     }
   };
 
+  // Effect to check for logged-in user on initial load
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  // Check if user is linked with another user
+  useEffect(() => {
+    checkLinked();
+  }, [user]);
+    
+
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} linked={linked} partner={partner} api={api}/>,
+      element: <Home handleLogout={handleLogout} user={user} loading={loading} linked={linked} partner={partner} api={api}/>,
     },
     {
       path: '/login',
-      element: <Login handleLogin={handleLogin} handleLogout={handleLogout} api={api}/>,
+      element: <Login api={api} setUser={setUser} setLinked ={setLinked} setPartner={setPartner}/>,
     },
     {
       path: '/signup',
-      element: <Signup handleLogin={handleLogin} handleLogout={handleLogout} api={api}/>,
+      element: <Signup api={api}/>,
     },
     {
       path: '*',
@@ -114,17 +113,17 @@ const App = () => {
     }, 
     {
       path: '/to-me',
-      element: <ToMe handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} partner={partner} api={api}/>,
+      element: <ToMe handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} partner={partner} api={api}/>,
     },
     {
       path: '/to-ta',
-      element: <ToTa handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} api={api}/>,
+      element: <ToTa handleLogout={handleLogout} user={user} loading={loading} setUser={setUser} api={api}/>,
     },
 
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: user ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}
+      element: user ? <Link setLinked={setLinked} linked={linked} handleLogout={handleLogout} user={user} loading={loading} api={api}
         setPartner={setPartner}/>
       : <Navigate to="/" />
     }
