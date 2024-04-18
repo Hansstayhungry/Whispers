@@ -35,7 +35,6 @@ const App = () => {
   // Function to handle login
   const handleLogin = (userData) => {
     setUser(userData);
-    localStorage.setItem('isLoggedIn', true);
   };
 
   // Function to handle logout
@@ -43,7 +42,6 @@ const App = () => {
     api.get('/users/logout')
       .then(() => {
         setUser();
-        localStorage.removeItem('isLoggedIn');
       })
       .catch(error => {
         console.error('Error logging out:', error);
@@ -122,7 +120,7 @@ const App = () => {
     // redirect to home page if not logged in
     {
       path: '/link',
-      element: localStorage.getItem("isLoggedIn") ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}
+      element: user ? <Link setLinked={setLinked} linked={linked} handleLogin={handleLogin} handleLogout={handleLogout} user={user} loading={loading} api={api}
         setPartner={setPartner}/>
       : <Navigate to="/" />
     }

@@ -22,7 +22,7 @@ const Header = (props) => {
       {!loading && (
         <div className="sign-container">
           <span className="buttonGroup">
-            {localStorage.getItem("isLoggedIn") ? (
+            {user ? (
               <div>
                 <h2>{user && user.email}</h2>
                 <Button id="link" component={Link} to="/link" className="MuiLink-button">
