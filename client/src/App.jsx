@@ -15,11 +15,13 @@ const App = () => {
   // Create an instance of Axios with a baseURL
   const api = axios.create({
     baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
-    // https://whispers-backend.onrender.com/ or http://localhost:8080
+    // https://whispers-backend.onrender.com or http://localhost:8080
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*', 
+      'Content-Type': 'application/json'
+    }
   });
-
-
-  api.defaults.withCredentials = true;
 
   // State to manage the user information
   const [user, setUser] = useState();
