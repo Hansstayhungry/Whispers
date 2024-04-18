@@ -14,8 +14,8 @@ import axios from 'axios';
 const App = () => {
   // Create an instance of Axios with a baseURL
   const api = axios.create({
-    baseURL: 'https://whispers-f1v1.onrender.com/', // Replace with backend URL
-    // https://whispers-f1v1.onrender.com/ or http://localhost:8080
+    baseURL: 'https://whispers-backend.onrender.com/', // Replace with backend URL
+    // https://whispers-backend.onrender.com/ or http://localhost:8080
   });
 
 
