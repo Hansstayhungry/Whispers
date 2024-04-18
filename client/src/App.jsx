@@ -16,10 +16,11 @@ const App = () => {
   const api = axios.create({
     baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
     // https://whispers-backend.onrender.com or http://localhost:8080
-    withCredentials: true,
+    sameSite: 'none',
   });
 
 
+  api.defaults.withCredentials = true;
 
   // State to manage the user information
   const [user, setUser] = useState();
@@ -67,7 +68,7 @@ const App = () => {
   
   const checkLinked = async () => {
     try {
-
+      console.log("checklinked user: ", user);
       // ensure the user is logged in before checking linked user
       if (user) {
         const response = await api.get('links/checkLinked');

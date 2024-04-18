@@ -12,7 +12,6 @@ import invitations from './routes/invitations.js';
 import links from './routes/links.js';
 
 const app = express();
-app.set("trust proxy", 1);
 
 // middleware setup
 app.use(morgan(ENVIRONMENT));
@@ -28,7 +27,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
-    sameSite: 'none',
   }
 }));
 

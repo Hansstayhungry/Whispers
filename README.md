@@ -3,7 +3,10 @@
 Whispers - A post sharing app designed between couples
 It is now available at https://whispers-f1v1.onrender.com/
 PostgreSQL for Azure is implemented for this demo.
+
 ## ATTENTION, DUE TO THE LIMITAION on onrender.com. onrender.com is an entry on the public suffix list, this restricts access to cookies across subdomains. Therefore, the functionality of the hosted website is compromised.
+
+## Perfectly running in local environment
 
 If you don't feel like sign up to test out the features, you can utlize the demo account below:
 (email and password are the same)
