@@ -16,7 +16,10 @@ const App = () => {
   const api = axios.create({
     baseURL: 'https://whispers-backend.onrender.com', // Replace with backend URL
     // https://whispers-backend.onrender.com or http://localhost:8080
+    withCredentials: true,
   });
+
+
 
   // State to manage the user information
   const [user, setUser] = useState();

@@ -45,19 +45,6 @@ const Login = (props) => {
         // // set login state to true if sign up is successful, and pass user info to parent component
         setUser(response.data.userInfo);
         console.log("set user response.data.userInfo: ", response.data.userInfo);
-
-        // const res = await api.post('/links/checkLinked', response.data.userInfo);
-        // console.log("res", res);
-        // if (res.data.partner) {
-        //   setLinked(res.data.linked);
-        //   const { id: partnerId, email: partnerEmail, username: partnerUsername } = response.data.partner;
-        //   console.log("partnerId", partnerId, "partnerEmail", partnerEmail, "partnerUsername", partnerUsername);
-        //   setPartner({ id: partnerId, email: partnerEmail, username: partnerUsername });
-        // } else {
-        //   console.log("no partner");
-        // }        
-
-        // use navigate to redirect to main page
         navigate('/');
         // redirect('/');
         return        
